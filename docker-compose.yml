@@ -2,26 +2,29 @@ version: "3"
 
 services:
     express:
-        build: .
-        container_name: express
+        # build: .
+        image: node:16
+        container_name: tastrServer
         volumes:
-            - ./src/:/usr/app/src
+            - ./:/usr/app
         ports:
             - "8080:8080"
+        working_dir: /usr/app
         depends_on:
             - "mysql"
+        command: bash -c "npm install && npm run dev"
 
     mysql:
         image: mysql
         restart: always
-        container_name: database
+        container_name: tastrDB
         ports:
             - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_USER: user
             MYSQL_PASSWORD: password
-            MYSQL_DATABASE: mapit
+            MYSQL_DATABASE: tastr
         volumes:
             - ./.mysql:/var/lib/mysql
         # - ./database.sql:/docker-entrypoint-initdb.d

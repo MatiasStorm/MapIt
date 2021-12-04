@@ -4,7 +4,10 @@
   "description": "NodeJS 2021 exam project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/app.js",
+    "lint": "eslint ./src",
+    "lint-fix": "eslint ./src --fix"
   },
   "author": "Matias Storm",
   "license": "ISC",
@@ -12,6 +15,14 @@
     "cookie-parser": "^1.4.6",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
     "sequelize": "^6.12.0-alpha.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^8.4.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "nodemon": "^2.0.15"
   }
 }
