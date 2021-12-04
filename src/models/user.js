@@ -27,6 +27,10 @@ class User extends Model {
 
         super.init(structure, { modelName: "user", sequelize });
     }
+
+    static associate(models){
+        User.hasMany(models.Tasting);
+    }
 }
 
 module.exports = User;

@@ -1,4 +1,4 @@
-const { DataTypes, Model } = import("sequelize");
+const { DataTypes, Model } = require("sequelize");
 
 class Player extends Model {
     static init(sequelize) {
