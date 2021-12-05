@@ -10,13 +10,13 @@ class Tasting extends Model {
             imageUrl: {
                 type: DataTypes.STRING,
                 allowNull: true,
-            }
+            },
         };
 
         super.init(structure, { modelName: "tasting", sequelize });
     }
 
-    static associate(models){
+    static associate(models) {
         Tasting.hasMany(models.TastingItem);
         Tasting.hasMany(models.Rating);
     }

@@ -25,10 +25,10 @@ class User extends Model {
             },
         };
 
-        super.init(structure, { modelName: "user", sequelize });
+        super.init(structure, { modelName: "User", sequelize });
     }
 
-    static associate(models){
+    static associate(models) {
         User.hasMany(models.Tasting);
     }
 }

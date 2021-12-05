@@ -9,7 +9,7 @@ class Rating extends Model {
             },
         };
 
-        super.init(structure, { modelName: "rating", sequelize });
+        super.init(structure, { modelName: "Rating", sequelize });
     }
 }
 

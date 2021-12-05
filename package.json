@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/app.js",
-    "lint": "eslint ./src",
-    "lint-fix": "eslint ./src --fix"
+    "lint": "eslint ./src ./db",
+    "lint-fix": "eslint ./src ./db --fix",
+    "migrate": "sequelize-cli db:migrate"
   },
   "author": "Matias Storm",
   "license": "ISC",

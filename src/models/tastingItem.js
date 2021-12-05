@@ -17,7 +17,7 @@ class TastingItem extends Model {
             },
         };
 
-        super.init(structure, { modelName: "tasting_item", sequelize });
+        super.init(structure, { modelName: "TastingItem", sequelize });
     }
 }
 
