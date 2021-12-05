@@ -6,6 +6,7 @@ class User extends Model {
             username: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                unique: true,
             },
             password: {
                 type: DataTypes.STRING,
@@ -14,14 +15,24 @@ class User extends Model {
             firstName: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                validate: {
+                    isAlpha: true,
+                },
             },
             lastName: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                validate: {
+                    isAlpha: true,
+                },
             },
             email: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                unique: true,
+                validate: {
+                    isEmail: true,
+                },
             },
         };
 

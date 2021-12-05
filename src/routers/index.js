@@ -1,5 +1,5 @@
-module.exports.userRouter = require("./user.js");
-module.exports.playerRouter = require("./player.js");
-module.exports.ratingRouter = require("./rating.js");
-module.exports.tastingRouter = require("./tasting.js");
-module.exports.tastingItemRouter = require("./tastingItem.js");
+module.exports.userRouter = require("./user");
+module.exports.playerRouter = require("./player");
+module.exports.ratingRouter = require("./rating");
+module.exports.tastingRouter = require("./tasting");
+module.exports.tastingItemRouter = require("./tastingItem");
