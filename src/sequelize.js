@@ -20,6 +20,7 @@ const models = require("./models");
 Object.values(models).forEach((model) => {
     model.init(sequelize);
 });
+// We do two loops, because all models has to be initialized before doing the associations
 Object.values(models).forEach((model) => {
     if ("associate" in model) {
         model.associate(models);

@@ -1,24 +1,23 @@
+const path = require('path');
 const express = require("express");
-const sequelize = require("./sequelize");
 
 const app = express();
 const port = 8080;
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "/public")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Register all of the routers:
-const routers = require("./routers");
+// Register all of the api routes:
+app.use("/api", require("./api"));
 
-Object.values(routers).forEach((router) => {
-    app.use(router);
-});
+// register all of the routing routes:
+app.use(require("./routes"));
 
-app.get("/", (req, res) => {
-    res.send("Working!");
-});
+app.get("*", (req, res) => {
+    res.redirect("/");
+})
 
 app.listen(port, () => {
     console.log(`Website hosted at http://localhost:${port}`);
