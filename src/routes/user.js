@@ -1,12 +1,15 @@
-module.exports = (pagePath) => {
+module.exports = (pagePath, createPage) => {
     const router = require("express").Router();
 
+    const loginPage = createPage(pagePath + "/user/login.html"); 
+    const registerPage = createPage(pagePath + "/user/register.html");
+
     router.get("/login", (req, res) => {
-        res.sendFile(pagePath + "/user/login.html");
+        res.send(loginPage);
     })
 
     router.get("/register", (req, res) => {
-        res.sendFile(pagePath + "/user/register.html");
+        res.send(registerPage);
     })
 
     return router;

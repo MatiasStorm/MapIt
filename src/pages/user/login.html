@@ -1,12 +1,30 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    login
-    
+<body class="bg-blue-600 h-screen flex flex-col">
+    <div class="m-auto w-1/5 flex flex-col">
+        <h1 class="text-white mx-auto text-4xl pb-4">
+            Tastr - Login
+        </h1>
+        <div class="bg-white flex flex-col rounded p-3">
+            <label for="username">
+                Username:
+            </label>
+            <input id="username" class="rounded border border-gray-300 my-1 p-3" type="text">
+            <label for="password">
+                Password:
+            </label>
+            <input id="password" class="rounded border border-gray-300 my-1 p-3" type="password">
+            <div class="flex justify-center space-x-1">
+                <button class="bg-gray-800 rounded my-1 p-3 flex-grow hover:bg-gray-900" onclick="window.location = '/'">
+                    <b class="text-white">
+                       Cancel 
+                    </b>
+                </button>
+                <button class="bg-gray-800 rounded my-1 p-3 flex-grow hover:bg-gray-900">
+                    <b class="text-white">
+                       Login 
+                    </b>
+                </button>
+            </div>
+            <a href="/user/register" class="self-center underline">Create Account</a>
+        </div>
+    </div>
 </body>
-</html>
