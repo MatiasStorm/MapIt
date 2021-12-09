@@ -2,32 +2,34 @@ const path = require("path");
 const fs = require("fs");
 const router = require("express").Router();
 
-const pagePath = path.join(__dirname, "../pages");
+const pagePath = path.join(__dirname, "../templates/pages");
+const componentPath = path.join(__dirname, "../templates/components");
 
+const head = fs.readFileSync(`${componentPath}/head.html`);
+const tail = fs.readFileSync(`${componentPath}/tail.html`);
 
-function createPage(filePath, options){
-    const page = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>%%DOCUMENT_TITLE%%</title>
-            <link rel="stylesheet" href="/css/tailwind.css">
-        </head>
-            ${fs.readFileSync(filePath)}
-        </html>
+function createPage(filePath, options = { title: "Tastr" }) {
+    const values = { ...options };
+    let page = `
+        ${head}
+        ${fs.readFileSync(filePath)}
+        ${tail}
     `;
-    page.replace("%%DOCUMENT_TITLE%%", !options?.title ? "Tastr" : "Tastr - " + options.title);
+
+    if (options.title !== "Tastr") {
+        values.title = `Tastr - ${options.title}`;
+    }
+
+    Object.keys(values).forEach((key) => {
+        page = page.replaceAll(`{{${key}}}`, values[key]);
+    });
     return page;
 }
 
 router.get("/", (req, res) => {
-    res.send(createPage(pagePath + "/index.html"));
-})
+    res.send(createPage(`${pagePath}/index.html`));
+});
 
 router.use("/user", require("./user")(pagePath, createPage));
 
-
 module.exports = router;
-
-

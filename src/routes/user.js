@@ -1,17 +1,21 @@
+const router = require("express").Router();
+
 module.exports = (pagePath, createPage) => {
-    const router = require("express").Router();
-
-    const loginPage = createPage(pagePath + "/user/login.html"); 
-    const registerPage = createPage(pagePath + "/user/register.html");
-
     router.get("/login", (req, res) => {
-        res.send(loginPage);
-    })
+        const options = {
+            title: "Login",
+        };
+        const page = createPage(`${pagePath}/user/login.html`, options);
+        res.send(page);
+    });
 
     router.get("/register", (req, res) => {
-        res.send(registerPage);
-    })
+        const options = {
+            title: "Register",
+        };
+        const page = createPage(`${pagePath}/user/register.html`, options);
+        res.send(page);
+    });
 
     return router;
-}
-
+};
