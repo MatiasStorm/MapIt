@@ -1,6 +1,9 @@
 const path = require("path");
 const express = require("express");
 
+// Initialize sequelize:
+require("./sequelize")();
+
 const app = express();
 const port = 8080;
 

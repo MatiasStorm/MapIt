@@ -1,10 +1,8 @@
-import Input from "../../components/input";
+import Button from "../../components/button.js";
+import Input from "../../components/input.js";
 
 class UserRegister {
     constructor() {
-        document.getElementById("cancel-button").onclick = () => window.location = "/";
-        document.getElementById("create-button").onclick = () => createUser();
-
         this.inputs = {
             username: new Input("username"),
             firstName: new Input("firstName"),
@@ -13,11 +11,16 @@ class UserRegister {
             password: new Input("password"),
         };
         this.user = {};
+    }
 
-        Object.keys(inputs).forEach((key) => {
-            const input = inputs[key];
-            input.on("input", () => updateUserObject(key, input.getValue()));
-            user[key] = input.getValue();
+    run() {
+        (new Button("cancel-button")).on("click", () => { window.location = "/"; });
+        (new Button("create-button")).on("click", () => this.postUser());
+
+        Object.keys(this.inputs).forEach((key) => {
+            const input = this.inputs[key];
+            input.on("input", () => this.updateUserObject(key, input.getValue()));
+            this.user[key] = input.getValue();
         });
     }
 
@@ -28,16 +31,13 @@ class UserRegister {
     postUser() {
         fetch("/api/users", {
             method: "POST",
-            body: JSON.stringify(user),
+            body: JSON.stringify(this.user),
             headers: {
                 "Content-Type": "application/json",
             },
         });
     }
-
-    main() {
-
-    }
 }
 
-new UserRegister();
+const userRegister = new UserRegister();
+userRegister.run();
