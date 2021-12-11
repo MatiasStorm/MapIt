@@ -17,5 +17,13 @@ module.exports = (pagePath, createPage) => {
         res.send(page);
     });
 
+    router.get("/dashboard", (req, res) => {
+        const options = {
+            title: "Dashboard",
+        };
+        const page = createPage(`${pagePath}/user/dashboard.html`, options);
+        res.send(page);
+    });
+
     return router;
 };

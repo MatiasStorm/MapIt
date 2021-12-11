@@ -5,7 +5,20 @@
     <title>{{title}}</title>
     <link rel="stylesheet" href="/css/tailwind.css">
 </head>
-    <body class="bg-red-900 h-screen flex flex-col">
+    <body class="bg-red-900 h-screen flex flex-col" style="visibility: hidden">
         ??
     </body>
+    <script>
+        // Helper function
+        let domReady = (cb) => {
+          document.readyState === 'interactive' || document.readyState === 'complete'
+            ? cb()
+            : document.addEventListener('DOMContentLoaded', cb);
+        };
+
+        domReady(() => {
+          // Display body when DOM is loaded
+          document.body.style.visibility = 'visible';
+        });
+    </script>
 </html>
