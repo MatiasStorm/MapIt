@@ -25,5 +25,30 @@ module.exports = (pagePath, createPage) => {
         res.send(page);
     });
 
+    router.get("/account", (req, res) => {
+        const options = {
+            title: "Account",
+        };
+        const page = createPage(`${pagePath}/user/account.html`, options);
+        res.send(page);
+    });
+
+    router.get("/explore", (req, res) => {
+        const options = {
+            title: "Explore",
+        };
+        const page = createPage(`${pagePath}/user/explore.html`, options);
+        res.send(page);
+    });
+
+    router.get("/held-tastings", (req, res) => {
+        const page = createPage(`${pagePath}/user/held-tastings.html`);
+        res.send(page);
+    });
+
+    router.get("/my-tastings", (req, res) => {
+        const page = createPage(`${pagePath}/user/my-tastings.html`);
+        res.send(page);
+    });
     return router;
 };

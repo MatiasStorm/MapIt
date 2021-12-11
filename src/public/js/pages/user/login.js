@@ -30,7 +30,14 @@ class Login {
             headers: {
                 "Content-Type": "application/json",
             },
-        });
+        }).then(res => {
+            if(res.status === 401 || res.status === 400){
+                //invalid user cred
+            }
+            else if(res.redirected){
+                window.location.href = res.url;
+            }
+        })
     }
 }
 

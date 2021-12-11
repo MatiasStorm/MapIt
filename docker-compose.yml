@@ -16,7 +16,9 @@ services:
         environment:
             ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
             REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
-
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
 
     mysql:
         image: mysql
