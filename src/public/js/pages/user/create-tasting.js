@@ -1,12 +1,11 @@
 import TastingForm from "../../components/tastingForm.js";
 
 class CreateTasting {
-    constructor(){
+    constructor() {
         this.form = new TastingForm("tasting-form");
     }
 
-
-    render(){
+    render() {
         this.form.render();
     }
 }

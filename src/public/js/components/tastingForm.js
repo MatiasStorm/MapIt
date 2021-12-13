@@ -1,17 +1,17 @@
 import Input from "./input.js";
 
 export default class TastingForm {
-    constructor(id, tasting = {}){
+    constructor(id, tasting = {}) {
         this.id = id;
         this.inputs = {
             title: new Input("title"),
             imageUrl: new Input("imageUrl"),
-        }
+        };
         this.tasting = tasting;
     }
 
-    getHtml(){
-        let html = `
+    getHtml() {
+        const html = `
             <label for="title">
                 <b>
                     Title
@@ -37,29 +37,27 @@ export default class TastingForm {
         return html;
     }
 
-    updateTasting(){
+    updateTasting() {
 
     }
 
-    getTasting(){
+    getTasting() {
         return this.tasting;
     }
 
-    renderInputs(){
-        Object.entries(this.inputs).forEach(([ key, input ]) => {
+    renderInputs() {
+        Object.entries(this.inputs).forEach(([key, input]) => {
             input.render();
             this.tasting[key] = input.getValue();
-            input.on("input", () => this.updateLogin(key, input.getValue()))
+            input.on("input", () => this.updateLogin(key, input.getValue()));
         });
     }
 
-    render(){
+    render() {
         this.container = document.getElementById(this.id);
         this.container.innerHTML = this.getHtml();
-        this.container.className = "flex flex-col px-4"
+        this.container.className = "flex flex-col px-4";
 
         this.renderInputs();
-
-
     }
 }

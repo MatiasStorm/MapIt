@@ -5,21 +5,21 @@ export default class Input {
     }
 
     on(type, listener) {
-        this.input.addEventListener(type, listener)
+        this.input.addEventListener(type, listener);
     }
 
     getValue() {
         return this.input.value;
     }
 
-    getClassName(){
-        return "rounded border border-gray-300 p-3 " + this.options?.extraClasses || "";
+    getClassName() {
+        return `rounded border border-gray-300 p-3 ${this.options?.extraClasses}` || "";
     }
 
-    render(){
+    render() {
         this.input = document.getElementById(this.id);
-        if (this.input === null){
-            throw new Error("No input with id: " + this.id);
+        if (this.input === null) {
+            throw new Error(`No input with id: ${this.id}`);
         }
         this.input.className = this.getClassName();
     }

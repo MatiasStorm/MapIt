@@ -7,6 +7,10 @@ class Rating extends Model {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            position: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
         };
 
         super.init(structure, { modelName: "Rating", sequelize });

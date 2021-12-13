@@ -3,7 +3,7 @@
     "username": "root",
     "password": "password",
     "database": "tastr",
-    "host": "tastrDB",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
