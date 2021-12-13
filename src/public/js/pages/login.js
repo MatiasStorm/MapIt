@@ -3,9 +3,10 @@ import Input from "../components/input.js";
 
 class Login {
     constructor() {
+        const extraClasses = "my-1"
         this.inputs = {
-            username: new Input("username"),
-            password: new Input("password"),
+            username: new Input("username", {extraClasses}),
+            password: new Input("password", {extraClasses}),
         };
         this.login = {};
     }

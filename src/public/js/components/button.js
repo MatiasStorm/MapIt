@@ -16,7 +16,7 @@ export default class Button {
         }
     }
 
-    getClassList(){
+    getClassName(){
         let classes = "rounded ";
         classes += this.options?.light ?  " bg-gray-100 hover:bg-gray-200 ": " bg-gray-800 text-white hover:bg-gray-900 ";
         switch ( this.options?.size ){
@@ -40,7 +40,7 @@ export default class Button {
             throw new Error("No button with id: " + this.id);
         }
         this.button.type = this.options?.type || "button";
-        this.button.className = this.getClassList();
+        this.button.className = this.getClassName();
 
         this.rendered = true;
         return this;

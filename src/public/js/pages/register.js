@@ -3,25 +3,37 @@ import Input from "../components/input.js";
 
 class UserRegister {
     constructor() {
+        const extraClasses = "my-1"
         this.inputs = {
-            username: new Input("username"),
-            firstName: new Input("firstName"),
-            lastName: new Input("lastName"),
-            email: new Input("email"),
-            password: new Input("password"),
+            username: new Input("username", {extraClasses}),
+            firstName: new Input("firstName", {extraClasses}),
+            lastName: new Input("lastName", {extraClasses}),
+            email: new Input("email", {extraClasses}),
+            password: new Input("password", {extraClasses}),
         };
         this.user = {};
     }
 
-    render() {
-        (new Button("cancel-button")).on("click", () => { window.location = "/"; });
-        (new Button("create-button")).on("click", () => this.postUser());
+    renderButtons(){
+        (new Button("cancel-button", {extraClasses: "flex-grow"}))
+            .render()
+            .on("click", () => { window.location = "/"; });
+        (new Button("create-button", {extraClasses: "flex-grow"}))
+            .render()
+            .on("click", () => this.postUser());
+    }
 
+    renderInputs(){
         Object.entries(this.inputs).forEach(([ key, input ]) => {
             input.render();
             input.on("input", () => this.updateUserObject(key, input.getValue()));
             this.user[key] = input.getValue();
         });
+    }
+
+    render() {
+        this.renderButtons();
+        this.renderInputs();
     }
 
     updateUserObject(key, value) {
