@@ -1,6 +1,10 @@
 const path = require("path");
 const express = require("express");
 
+
+// Initializing aws s3 bucket
+require("./s3").config();
+
 // Initialize sequelize:
 require("./sequelize")();
 

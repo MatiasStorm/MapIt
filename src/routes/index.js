@@ -12,6 +12,14 @@ router.get("/", (req, res) => {
     res.send(createPage(`${pagePath}/index.html`));
 });
 
-router.use("/user", require("./user")(pagePath, createPage));
+router.get("/login", (req, res) => {
+    res.send(createPage(`${pagePath}/login.html`));
+});
+
+router.get("/register", (req, res) => {
+    res.send(createPage(`${pagePath}/register.html`));
+});
+
+router.use("/user", require("./user")(path.join(pagePath, "user"), createPage));
 
 module.exports = router;

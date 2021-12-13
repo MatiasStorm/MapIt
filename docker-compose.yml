@@ -12,13 +12,21 @@ services:
         working_dir: /usr/app
         depends_on:
             - "mysql"
+            - "localstack-s3"
         command: bash -c "npm install && npm run dev"
         environment:
             ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
             REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
+
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+            AWS_BUCKET_ENDPOINT: ${AWS_BUCKET_ENDPOINT}
+            AWS_BUCKET_REGION: ${AWS_BUCKET_REGION}
+            AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+            AWS_SECRET_KEY: ${AWS_SECRET_KEY}
+            AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
 
     mysql:
         image: mysql
@@ -33,4 +41,16 @@ services:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
         volumes:
             - ./.mysql:/var/lib/mysql
-        # - ./database.sql:/docker-entrypoint-initdb.d
+
+    localstack-s3:
+        image: localstack/localstack:latest
+        container_name: localstack-s3
+        environment:
+            - SERVICES=s3
+            - DEFAULT_REGION=${AWS_BUCKET_REGION}
+            - DATA_DIR=/tmp/localstack/data
+            - DEBUG=1
+        ports:
+            - '4566:4566'
+        volumes:
+          - ./.localstack-data:/tmp/localstack

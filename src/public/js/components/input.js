@@ -1,9 +1,6 @@
 export default class Input {
     constructor(id) {
-        this.input = document.getElementById(id);
-        if (this.input === null){
-            throw new Error("No input with id: " + id);
-        }
+        this.id = id;
     }
 
     on(type, listener) {
@@ -12,5 +9,12 @@ export default class Input {
 
     getValue() {
         return this.input.value;
+    }
+
+    render(){
+        this.input = document.getElementById(this.id);
+        if (this.input === null){
+            throw new Error("No input with id: " + this.id);
+        }
     }
 }

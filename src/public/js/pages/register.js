@@ -1,5 +1,5 @@
-import Button from "../../components/button.js";
-import Input from "../../components/input.js";
+import Button from "../components/button.js";
+import Input from "../components/input.js";
 
 class UserRegister {
     constructor() {
@@ -13,12 +13,12 @@ class UserRegister {
         this.user = {};
     }
 
-    run() {
+    render() {
         (new Button("cancel-button")).on("click", () => { window.location = "/"; });
         (new Button("create-button")).on("click", () => this.postUser());
 
-        Object.keys(this.inputs).forEach((key) => {
-            const input = this.inputs[key];
+        Object.entries(this.inputs).forEach(([ key, input ]) => {
+            input.render();
             input.on("input", () => this.updateUserObject(key, input.getValue()));
             this.user[key] = input.getValue();
         });
@@ -39,5 +39,4 @@ class UserRegister {
     }
 }
 
-const userRegister = new UserRegister();
-userRegister.run();
+new UserRegister().render();

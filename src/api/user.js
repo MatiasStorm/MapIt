@@ -4,7 +4,18 @@ const jwt = require("jsonwebtoken");
 const {Op} = require("sequelize");
 
 router.get("/:id", async (req, res) => {
-    res.json({ name: "Test" });
+    try {
+        const user = await User.findByPk(req.params.id);
+        if(user !== null){
+            return res.json(user);
+        }
+        res.statusCode = 404;
+        res.send();
+    }
+    catch (err){
+        res.statusCode = 500;
+        res.json(err);
+    }
 });
 
 router.post("", async (req, res) => {

@@ -1,5 +1,5 @@
-import Button from "../../components/button.js";
-import Input from "../../components/input.js";
+import Button from "../components/button.js";
+import Input from "../components/input.js";
 
 class Login {
     constructor() {
@@ -10,13 +10,26 @@ class Login {
         this.login = {};
     }
 
-    run() {
-        (new Button("cancel-button")).on("click", () => { window.location = "/"; });
-        (new Button("login-button")).on("click", () => this.postLogin());
+    renderButtons(){
+        (new Button("cancel-button", {extraClasses: "flex-grow"}))
+            .render()
+            .on("click", () => { window.location = "/"; });
+        (new Button("login-button", {extraClasses: "flex-grow"}))
+            .render()
+            .on("click", () => this.postLogin());
+    }
+
+    renderInputs(){
         Object.entries(this.inputs).forEach(([ key, input ]) => {
+            input.render();
             this.login[key] = input.getValue();
             input.on("input", () => this.updateLogin(key, input.getValue()))
         });
+    }
+
+    render() {
+        this.renderButtons();
+        this.renderInputs();
     }
 
     updateLogin(key, value){
@@ -41,7 +54,4 @@ class Login {
     }
 }
 
-window.onload = () => {
-    const login = new Login();
-    login.run();
-};
+new Login().render();
