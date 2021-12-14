@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const jwt = require("jsonwebtoken");
+const { signToken } = require("../auth");
 const { Op } = require("sequelize");
 const { User } = require("../models");
 
@@ -38,21 +38,18 @@ router.post("/login", async (req, res) => {
         res.status(400);
         return res.send();
     }
+    console.log(body);
     const user = await User.findOne({
-        where: {
-            [Op.and]: [
-                { username: body.username },
-                { password: body.password },
-            ],
-        },
-    });
+            where: {
+                [Op.and]: [
+                    { username: body.username },
+                    { password: body.password },
+                ],
+            },
+        });
     if (user) {
-        const data = {
-            username: user.username,
-            id: user.id,
-        };
-        const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
-        res.cookie("auth", `Baerer ${accessToken}`, {
+        const accessToken = signToken(user);
+        res.cookie("auth", accessToken, {
             httpOnly: true,
         });
         res.redirect(301, "/user/dashboard");

@@ -28,7 +28,6 @@ class CreateTasting {
 
     postTasting(){
         let tasting = this.form.getTasting();
-        console.log(tasting);
         api.uploadImage(tasting.image)
             .then(response => response.json())
             .then(data => {

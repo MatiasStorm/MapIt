@@ -5,7 +5,6 @@ const { upload } = require("../s3");
 router.use(fileUpload());
 
 router.post("/", async (req, res) => {
-    console.log(req.files);
     if(!req.files?.image){
         return res.status(400).send("No files were uploaded.");
     }

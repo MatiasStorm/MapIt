@@ -7,13 +7,11 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const tasting = Tasting.create(req.body);
-        console.log(req.body);
-        res.status(201).json(tasting);
+        const tasting = await Tasting.create(req.body);
+        return res.status(201).json(tasting);
     }
     catch (err){
-        res.statusCode = 400;
-        return res.json(err);
+        return res.status(400).json(err.errors)
     }
 })
 
