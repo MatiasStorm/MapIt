@@ -66,17 +66,23 @@ class S3 {
         return false;
     }
 
-    async upload(){
+    async upload(name, data){
+        const key = `files/${new Date().getTime()}_${name}`;
         const bucketParams = {
             Bucket: this.bucketName,
             // Specify the name of the new object. For example, 'index.html'.
             // To create a directory for the object, use '/'. For example, 'myApp/package.json'.
-            Key: "files/test.txt",
+            Key: key,
             // Content of the new object.
-            Body: "BODY",
+            Body: data,
         };
-        const data = await this.s3Client.send(new PutObjectCommand(bucketParams));
-        console.log(data);
+        try {
+            await this.s3Client.send(new PutObjectCommand(bucketParams));
+            return key;
+        }
+        catch (err){
+            throw err;
+        }
     }
 }
 
@@ -87,6 +93,6 @@ module.exports.config = async () => {
 };
 
 
-module.exports.upload = async () => {
-    return await s3.upload();
+module.exports.upload = async (name, data) => {
+    return await s3.upload(name, data);
 };

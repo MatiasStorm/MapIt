@@ -5,7 +5,7 @@ export default class TastingForm {
         this.id = id;
         this.inputs = {
             title: new Input("title"),
-            imageUrl: new Input("imageUrl"),
+            image: new Input("image", {type: "file"}),
         };
         this.tasting = tasting;
     }
@@ -24,7 +24,7 @@ export default class TastingForm {
                     Cover Image
                 </b>
             </label>
-            <input id="imageUrl" type="file">
+            <input id="image" type="file">
             <h1 class="text-2xl mt-4">
                 <b>
                     Ratings
@@ -37,8 +37,9 @@ export default class TastingForm {
         return html;
     }
 
-    updateTasting() {
-
+    updateTasting(key, value) {
+        this.tasting[key] = value;
+        console.log(this.tasting);
     }
 
     getTasting() {
@@ -49,7 +50,7 @@ export default class TastingForm {
         Object.entries(this.inputs).forEach(([key, input]) => {
             input.render();
             this.tasting[key] = input.getValue();
-            input.on("input", () => this.updateLogin(key, input.getValue()));
+            input.on("input", () => this.updateTasting(key, input.getValue()));
         });
     }
 

@@ -3,7 +3,7 @@ const { DataTypes, Model } = require("sequelize");
 class Tasting extends Model {
     static init(sequelize) {
         const structure = {
-            name: {
+            title: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
@@ -13,7 +13,7 @@ class Tasting extends Model {
             },
         };
 
-        super.init(structure, { modelName: "tasting", sequelize });
+        super.init(structure, { modelName: "Tasting", sequelize });
     }
 
     static associate(models) {
