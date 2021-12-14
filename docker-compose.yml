@@ -11,8 +11,8 @@ services:
             - "8080:8080"
         working_dir: /usr/app
         depends_on:
-            - "mysql"
-            - "localstack-s3"
+            - mysql
+            - localstack-s3
         command: bash -c "npm install && npm run dev"
         environment:
             ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
@@ -49,8 +49,13 @@ services:
             - SERVICES=s3
             - DEFAULT_REGION=${AWS_BUCKET_REGION}
             - DATA_DIR=/tmp/localstack/data
-            - DEBUG=1
+            # - DEBUG=1
         ports:
             - '4566:4566'
+        healthcheck:
+            test: ["CMD", "curl", "-f",  "http://localhost:4566"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
         volumes:
           - ./.localstack-data:/tmp/localstack
