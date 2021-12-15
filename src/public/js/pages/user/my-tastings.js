@@ -1,6 +1,7 @@
 import api from "../../api.js";
 import Button from "../../components/button.js";
 import TastingCard from "../../components/tastingCard.js";
+import routes from "../../routes.js";
 
 class MyTastings {
     constructor() {
@@ -27,6 +28,7 @@ class MyTastings {
             const tastingCard = new TastingCard(tasting.id, tasting, {});
             this.tastingCards.push(tastingCard);
             tastingCard.render();
+            tastingCard.on("click", () => window.location = routes.user.myTastings + "/" + tasting.id )
         })
     }
 

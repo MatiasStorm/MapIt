@@ -25,7 +25,7 @@ class Templater {
         return this.components[name];
     }
 
-    compile(filePath, vars = { title: "Tastr" }) {
+    compile(filePath, vars = {  }) {
         let template = fs.readFileSync(filePath, { encoding: "utf8", flag: "r" });
         const ast = this.parse(template);
         ast.forEach((c) => {
@@ -38,6 +38,7 @@ class Templater {
         });
 
         const variables = { ...vars };
+        variables.title = variables.title || "Tastr";
 
         if (variables.title !== "Tastr") {
             variables.title = `Tastr - ${variables.title}`;

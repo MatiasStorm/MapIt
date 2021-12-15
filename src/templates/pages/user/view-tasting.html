@@ -1,0 +1,22 @@
+%%head%%
+    %%userNavbar/%%
+    <div class="w-8/12 h-full mx-auto bg-white shadow shadow-black">
+        <div class="flex content-center justify-between">
+            <h1 id="title" class="text-4xl inline-block p-3">
+
+            </h1>
+            <div class="p-3 space-x-3 flex justify-around">
+                <button id="launch-button">
+                    Launch Tasting
+                </button>
+            </div>
+        </div>
+        <div id="tasting-form">
+            
+        </div>
+    </div>
+    <script type="module">
+        import ViewTasting from "/js/pages/user/view-tasting.js";
+        new ViewTasting("{{id}}").render();
+    </script>
+%%/head%%

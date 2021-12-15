@@ -6,7 +6,7 @@ const componentPath = path.join(__dirname, "../templates/components");
 
 const templater = require("../templater")({ componentPath });
 
-const createPage = (file) => templater.compile(file);
+const createPage = (file, variables) => templater.compile(file, variables);
 
 router.get("/", (req, res) => {
     res.send(createPage(`${pagePath}/index.html`));

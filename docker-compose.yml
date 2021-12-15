@@ -1,5 +1,9 @@
 version: "3"
-
+networks:
+  tastr:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
 services:
     express:
         # build: .
@@ -14,6 +18,9 @@ services:
             - mysql
             - localstack-s3
         command: bash -c "npm install && npm run dev"
+        networks:
+            tastr:
+                ipv4_address: 172.20.0.4
         environment:
             ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
             REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
@@ -39,6 +46,9 @@ services:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
+        networks:
+            tastr:
+                ipv4_address: 172.20.0.3
         volumes:
             - ./.mysql:/var/lib/mysql
 
@@ -52,6 +62,9 @@ services:
             # - DEBUG=1
         ports:
             - '4566:4566'
+        networks:
+            tastr:
+                ipv4_address: 172.20.0.2
         healthcheck:
             test: ["CMD", "curl", "-f",  "http://localhost:4566"]
             interval: 30s

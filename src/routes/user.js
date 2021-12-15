@@ -29,9 +29,14 @@ module.exports = (pagePath, createPage) => {
         const page = createPage(path.join(pagePath, "my-tastings.html"));
         res.send(page);
     });
+    
+    router.get("/my-tastings/:id", (req, res) => {
+        const id = req.params.id;
+        const page = createPage(path.join(pagePath, "view-tasting.html"), {id});
+        res.send(page);
+    });
 
     router.get("/create-tasting", (req, res) => {
-        console.log("HERE");
         const page = createPage(path.join(pagePath, "create-tasting.html"));
         res.send(page);
     });

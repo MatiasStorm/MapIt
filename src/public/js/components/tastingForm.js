@@ -19,7 +19,7 @@ export default class TastingForm {
             </label>
             <input id="title" type="text">
 
-            <label for="imageUrl" class="mt-2">
+            <label for="image" class="mt-2">
                 <b>
                     Cover Image
                 </b>

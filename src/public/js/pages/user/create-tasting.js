@@ -32,7 +32,7 @@ class CreateTasting {
             .then(response => response.json())
             .then(data => {
                 delete tasting.image;
-                tasting.imageUrl = data.imageUrl;
+                tasting.imagePath = data.imagePath;
                 api.post(api.endpoints.tasting, tasting)
                     .then(response => response.json())
                     .then(data => {

@@ -10,8 +10,8 @@ router.post("/", async (req, res) => {
     }
     const image = req.files.image;
     try {
-        const imageUrl = await upload(image.name, image.data);
-        res.json({imageUrl});
+        const imagePath = await upload(image.name, image.data);
+        res.json({imagePath});
     }
     catch(err){
         res.status(400).send("Failed uploading image");

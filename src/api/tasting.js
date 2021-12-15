@@ -17,7 +17,12 @@ router.get("", async (req, res) => {
 })
 
 router.get("/:id", async (req, res) => {
-    res.json({ name: "Test" });
+    const id = req.params.id;
+    const tasting = await Tasting.findByPk(id);
+    if(!tasting){
+        return res.status(404).send();
+    }
+    return res.json(tasting);
 });
 
 router.post("/", authenticateToken, async (req, res) => {
@@ -27,6 +32,7 @@ router.post("/", authenticateToken, async (req, res) => {
         return res.status(201).json(tasting);
     }
     catch (err){
+        console.log(err);
         return res.status(400).json(err.errors)
     }
 })

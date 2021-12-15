@@ -18,7 +18,7 @@ class Tasting extends Model {
             imageUrl: {
                 type: DataTypes.VIRTUAL,
                 get() {
-                    return `${ process.env.AWS_BUCKET_ENDPOINT }/${this.getDataValue("imagePath")}` 
+                    return `${ process.env.AWS_BUCKET_ENDPOINT }/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}` 
                 },
                 set() {
                     throw new Error("Do no try to set the 'imageUrl', set the 'imagePath'");
