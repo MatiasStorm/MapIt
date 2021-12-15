@@ -7,13 +7,22 @@ class Tasting extends Model {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            imageUrl: {
+            imagePath: {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
             userId: {
                 type: DataTypes.INTEGER,
                 allowNull: false
+            },
+            imageUrl: {
+                type: DataTypes.VIRTUAL,
+                get() {
+                    return `${ process.env.AWS_BUCKET_ENDPOINT }/${this.getDataValue("imagePath")}` 
+                },
+                set() {
+                    throw new Error("Do no try to set the 'imageUrl', set the 'imagePath'");
+                }
             }
         };
 

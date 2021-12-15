@@ -8,18 +8,20 @@ class API {
         };
     }
 
-    __executeFetch(endpoint, data, method, headers){
-        return fetch(endpoint, {
-            method,
-            body: JSON.stringify(data),
-            headers: headers || {
-                "Content-Type": "application/json"
-            }
-        });
+    __executeFetch(endpoint, method, {data, headers} = {}){
+        const options = {};
+        options.method = method;
+
+        if(data){
+            options.body = JSON.stringify(data);
+        }
+        options.headers = headers || {"Content-Type": "application/json"};
+        
+        return fetch(endpoint, options);
     }
 
     post(endpoint, data){
-        return this.__executeFetch(this.baseUrl + endpoint, data, "POST");
+        return this.__executeFetch( this.baseUrl + endpoint, "POST", { data });
     }
 
     get(endpoint){
