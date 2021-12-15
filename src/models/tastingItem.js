@@ -3,7 +3,7 @@ const { DataTypes, Model } = require("sequelize");
 class TastingItem extends Model {
     static init(sequelize) {
         const structure = {
-            name: {
+            title: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
