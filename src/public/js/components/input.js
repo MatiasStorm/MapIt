@@ -9,11 +9,11 @@ export default class Input {
     }
 
     getValue() {
-        switch (this.options?.type){
-            case "file":
-                return this.input.files[0];
-            default:
-                return this.input.value;
+        switch (this.options?.type) {
+        case "file":
+            return this.input.files[0];
+        default:
+            return this.input.value;
         }
     }
 

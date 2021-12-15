@@ -3,7 +3,7 @@ const {
 } = require("@aws-sdk/client-s3");
 
 class S3 {
-    constructor(){
+    constructor() {
         this.credentials = {
             accessKeyId: process.env.AWS_ACCESS_KEY_ID,
             secretAccessKey: process.env.AWS_SECRET_KEY,
@@ -25,20 +25,20 @@ class S3 {
         });
     }
 
-    sleep(){
+    sleep() {
         return new Promise((resolve) => {
             setTimeout(resolve, this.sleepTime);
-        })
+        });
     }
 
-    async getBucketList(){
-        return await this.s3Client.send(new ListBucketsCommand({}));
+    getBucketList() {
+        return this.s3Client.send(new ListBucketsCommand({}));
     }
 
-    async config(){
+    async config() {
         let tries = 1;
         let bucketList;
-        while(tries <= this.retries){
+        while (tries <= this.retries) {
             try {
                 bucketList = await this.getBucketList();
             } catch (err) {
@@ -50,7 +50,11 @@ class S3 {
             if (bucketList.Buckets.length === 0) {
                 console.log(`\nCreating Bucket: ${this.bucketName}`);
                 try {
-                    const bucketData = await this.s3Client.send(new CreateBucketCommand({ Bucket: this.bucketName }));
+                    const bucketData = await this.s3Client.send(
+                        new CreateBucketCommand({
+                            Bucket: this.bucketName,
+                        }),
+                    );
                     console.log(`Sucessfully create bucket: ${this.bucketName} at ${bucketData.Location}\n`);
                     return true;
                 } catch (err) {
@@ -66,7 +70,7 @@ class S3 {
         return false;
     }
 
-    async upload(name, data){
+    async upload(name, data) {
         const key = `files/${new Date().getTime()}_${name}`;
         const bucketParams = {
             Bucket: this.bucketName,
@@ -79,8 +83,7 @@ class S3 {
         try {
             await this.s3Client.send(new PutObjectCommand(bucketParams));
             return key;
-        }
-        catch (err){
+        } catch (err) {
             throw err;
         }
     }
@@ -88,11 +91,6 @@ class S3 {
 
 const s3 = new S3();
 
-module.exports.config = async () => {
-    return await s3.config();
-};
+module.exports.config = () => s3.config();
 
-
-module.exports.upload = async (name, data) => {
-    return await s3.upload(name, data);
-};
+module.exports.upload = (name, data) => s3.upload(name, data);

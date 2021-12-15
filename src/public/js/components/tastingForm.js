@@ -5,7 +5,7 @@ export default class TastingForm {
         this.id = id;
         this.inputs = {
             title: new Input("title"),
-            image: new Input("image", {type: "file"}),
+            image: new Input("image", { type: "file" }),
         };
         this.tasting = tasting;
     }

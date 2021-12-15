@@ -1,23 +1,21 @@
-'use strict';
-
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+    up: async (queryInterface) => {
     /**
      * Add altering commands here.
      *
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-      queryInterface.renameColumn("TastingItems", "name", "title");
-  },
+        queryInterface.renameColumn("TastingItems", "name", "title");
+    },
 
-  down: async (queryInterface, Sequelize) => {
+    down: async (queryInterface) => {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
-      queryInterface.renameColumn("TastingItems", "title", "name");
-  }
+        queryInterface.renameColumn("TastingItems", "title", "name");
+    },
 };

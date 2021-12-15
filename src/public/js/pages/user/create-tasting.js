@@ -8,7 +8,7 @@ class CreateTasting {
         this.form = new TastingForm("tasting-form");
     }
 
-    renderButtons(){
+    renderButtons() {
         new Button("cancel-button", {})
             .render()
             .on("click", () => {
@@ -26,19 +26,19 @@ class CreateTasting {
         this.renderButtons();
     }
 
-    postTasting(){
-        let tasting = this.form.getTasting();
+    postTasting() {
+        const tasting = this.form.getTasting();
         api.uploadImage(tasting.image)
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((imageData) => {
                 delete tasting.image;
-                tasting.imagePath = data.imagePath;
+                tasting.imagePath = imageData.imagePath;
                 api.post(api.endpoints.tasting, tasting)
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data);
+                    .then((response) => response.json())
+                    .then((tastingData) => {
+                        console.log(tastingData);
                         window.location = routes.user.myTastings;
-                });
+                    });
             });
     }
 }

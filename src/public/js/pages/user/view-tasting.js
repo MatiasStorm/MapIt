@@ -9,13 +9,13 @@ export default class ViewTasting {
         this.tasting = {};
     }
 
-    fetchTasting(){
-        api.get(api.endpoints.tasting + "/" + this.tastingId)
-            .then(response => response.json())
-            .then(tasting => {
+    fetchTasting() {
+        api.get(`${api.endpoints.tasting}/${this.tastingId}`)
+            .then((response) => response.json())
+            .then((tasting) => {
                 this.tasting = tasting;
                 this.title.innerText = tasting.title;
-            })
+            });
     }
 
     render() {
@@ -24,4 +24,3 @@ export default class ViewTasting {
         // this.launchTastingButton.on("click", () => window.location = "/user/create-tasting");
     }
 }
-

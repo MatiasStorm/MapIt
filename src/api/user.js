@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { signToken } = require("../auth");
 const { Op } = require("sequelize");
+const { signToken } = require("../auth");
 const { User } = require("../models");
 
 router.get("/:id", async (req, res) => {
@@ -40,13 +40,13 @@ router.post("/login", async (req, res) => {
     }
     console.log(body);
     const user = await User.findOne({
-            where: {
-                [Op.and]: [
-                    { username: body.username },
-                    { password: body.password },
-                ],
-            },
-        });
+        where: {
+            [Op.and]: [
+                { username: body.username },
+                { password: body.password },
+            ],
+        },
+    });
     if (user) {
         const accessToken = signToken(user);
         res.cookie("auth", accessToken, {

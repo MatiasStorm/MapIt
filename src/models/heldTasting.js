@@ -10,7 +10,7 @@ class HeldTasting extends Model {
             isActive: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
-                default: true
+                default: true,
             },
             pin: {
                 type: DataTypes.STRING,
@@ -23,11 +23,11 @@ class HeldTasting extends Model {
             imageUrl: {
                 type: DataTypes.VIRTUAL,
                 get() {
-                    return `${ process.env.AWS_BUCKET_ENDPOINT }/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}` 
+                    return `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`;
                 },
                 set() {
                     throw new Error("Do no try to set the 'imageUrl', set the 'imagePath'");
-                }
+                },
             },
         };
 

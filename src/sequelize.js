@@ -2,10 +2,15 @@ const { Sequelize } = require("sequelize");
 const models = require("./models");
 
 module.exports = async () => {
-    const sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {
-        host: "tastrDB",
-        dialect: "mysql",
-    });
+    const sequelize = new Sequelize(
+        process.env.MYSQL_DATABASE,
+        process.env.MYSQL_USER,
+        process.env.MYSQL_PASSWORD,
+        {
+            host: "tastrDB",
+            dialect: "mysql",
+        },
+    );
 
     try {
         await sequelize.authenticate();

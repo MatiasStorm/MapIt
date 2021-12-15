@@ -5,17 +5,16 @@ const { upload } = require("../s3");
 router.use(fileUpload());
 
 router.post("/", async (req, res) => {
-    if(!req.files?.image){
+    if (!req.files?.image) {
         return res.status(400).send("No files were uploaded.");
     }
-    const image = req.files.image;
+    const { image } = req.files;
     try {
         const imagePath = await upload(image.name, image.data);
-        res.json({imagePath});
+        return res.json({ imagePath });
+    } catch (err) {
+        return res.status(400).send("Failed uploading image");
     }
-    catch(err){
-        res.status(400).send("Failed uploading image");
-    }
-})
+});
 
 module.exports = router;

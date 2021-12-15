@@ -1,7 +1,5 @@
-'use strict';
-
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+    up: async (queryInterface, Sequelize) => {
     /**
      * Add altering commands here.
      *
@@ -36,15 +34,15 @@ module.exports = {
                 type: DataTypes.DATE,
             },
         });
-  },
+    },
 
-  down: async (queryInterface, Sequelize) => {
+    down: async (queryInterface) => {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
-      await queryInterface.dropTable("HeldTastingItems");
-  }
+        await queryInterface.dropTable("HeldTastingItems");
+    },
 };

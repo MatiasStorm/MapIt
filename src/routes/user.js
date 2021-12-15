@@ -29,10 +29,10 @@ module.exports = (pagePath, createPage) => {
         const page = createPage(path.join(pagePath, "my-tastings.html"));
         res.send(page);
     });
-    
+
     router.get("/my-tastings/:id", (req, res) => {
-        const id = req.params.id;
-        const page = createPage(path.join(pagePath, "view-tasting.html"), {id});
+        const { id } = req.params;
+        const page = createPage(path.join(pagePath, "view-tasting.html"), { id });
         res.send(page);
     });
 

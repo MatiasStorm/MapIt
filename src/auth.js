@@ -17,16 +17,16 @@ function authenticateToken(req, res, next) {
     });
 }
 
-function signToken(user){
+function signToken(user) {
     const data = {
         username: user.username,
         id: user.id,
     };
     const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
-    return "baerer " + accessToken;
+    return `baerer ${accessToken}`;
 }
 
 module.exports = {
     authenticateToken,
-    signToken
+    signToken,
 };

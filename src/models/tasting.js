@@ -13,17 +13,17 @@ class Tasting extends Model {
             },
             userId: {
                 type: DataTypes.INTEGER,
-                allowNull: false
+                allowNull: false,
             },
             imageUrl: {
                 type: DataTypes.VIRTUAL,
                 get() {
-                    return `${ process.env.AWS_BUCKET_ENDPOINT }/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}` 
+                    return `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`;
                 },
                 set() {
                     throw new Error("Do no try to set the 'imageUrl', set the 'imagePath'");
-                }
-            }
+                },
+            },
         };
 
         super.init(structure, { modelName: "Tasting", sequelize });

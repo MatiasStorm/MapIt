@@ -9,10 +9,11 @@
         "airbnb-base"
     ],
     "parserOptions": {
-        "ecmaVersion": 13
+        "ecmaVersion": "latest"
     },
     "rules": {
         "indent": ["error", 4],
-        "quotes": ["error", "double"]
+        "quotes": ["error", "double"],
+        "import/extensions": 0
     }
 }

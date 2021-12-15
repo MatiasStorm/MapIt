@@ -25,7 +25,7 @@ class Templater {
         return this.components[name];
     }
 
-    compile(filePath, vars = {  }) {
+    compile(filePath, vars = { }) {
         let template = fs.readFileSync(filePath, { encoding: "utf8", flag: "r" });
         const ast = this.parse(template);
         ast.forEach((c) => {

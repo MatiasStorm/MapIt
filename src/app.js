@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Used to parse http only jwt cookie
 const cookieParser = require("cookie-parser");
+
 app.use(cookieParser());
 
 // Register all of the api routes:
