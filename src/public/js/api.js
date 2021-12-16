@@ -2,9 +2,10 @@ class API {
     constructor() {
         this.baseUrl = "/api";
         this.endpoints = {
-            user: "/users",
-            tasting: "/tastings",
-            rating: "/ratings",
+            user: "users",
+            tasting: "tastings",
+            rating: "ratings",
+            heldTastings: "heldTastings",
         };
     }
 
@@ -21,11 +22,13 @@ class API {
     }
 
     post(endpoint, data) {
-        return this.__executeFetch(this.baseUrl + endpoint, "POST", { data });
+        const url = `${this.baseUrl}/${endpoint}`;
+        return this.__executeFetch(url, "POST", { data });
     }
 
-    get(endpoint) {
-        return this.__executeFetch(this.baseUrl + endpoint, "GET");
+    get(endpoint, id=null) {
+        const url = `${this.baseUrl}/${endpoint}/${id ? id : ""}`;
+        return this.__executeFetch(url, "GET");
     }
 
     uploadImage(image) {

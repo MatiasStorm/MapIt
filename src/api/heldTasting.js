@@ -19,6 +19,10 @@ function generatePin(){
     return pin;
 }
 
+router.get("/:id", async(req, res) => {
+    return res.json(await HeldTasting.findByPk(req.params.id));
+})
+
 router.post("/", authenticateToken, async (req, res) => {
     const userId = req.user.id;
     const tastingId = req.body.tastingId;
@@ -61,12 +65,7 @@ router.post("/", authenticateToken, async (req, res) => {
         });
     }
 
-    return res.status(201).json(await HeldTasting.findByPk(heldTasting.id, {
-        include: [
-            HeldTastingItem,
-            HeldTastingRating
-        ]
-    }));
+    return res.redirect(`/tasting/${heldTasting.id}/${heldTasting.pin}`);
 });
 
 module.exports = router;

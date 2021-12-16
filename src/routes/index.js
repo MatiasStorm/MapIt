@@ -22,4 +22,6 @@ router.get("/register", (req, res) => {
 
 router.use("/user", require("./user")(path.join(pagePath, "user"), createPage));
 
+router.use("/tasting", require("./tasting")(path.join(pagePath, "tasting"), createPage));
+
 module.exports = router;

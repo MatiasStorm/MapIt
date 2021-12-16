@@ -21,6 +21,17 @@ export default class ViewTasting {
     render() {
         this.fetchTasting();
         this.launchTastingButton.render();
-        // this.launchTastingButton.on("click", () => window.location = "/user/create-tasting");
+        this.launchTastingButton.on("click", () => {
+            api.post(api.endpoints.heldTastings, {
+                tastingId: this.tastingId
+            }).then(response => {
+                if(response.redirected){
+                    window.location.href = response.url;
+                }
+                else {
+                    // Display error
+                }
+            });
+        });
     }
 }
