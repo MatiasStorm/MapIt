@@ -7,12 +7,12 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
         const { DataTypes } = Sequelize;
-        await queryInterface.changeColumn("Users", "username", {
+        await queryInterface.changeColumn("users", "username", {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
         });
-        await queryInterface.changeColumn("Users", "email", {
+        await queryInterface.changeColumn("users", "email", {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
@@ -27,11 +27,11 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
         const { DataTypes } = Sequelize;
-        await queryInterface.changeColumn("Users", "username", {
+        await queryInterface.changeColumn("users", "username", {
             type: DataTypes.STRING,
             allowNull: false,
         });
-        await queryInterface.changeColumn("Users", "email", {
+        await queryInterface.changeColumn("users", "email", {
             type: DataTypes.STRING,
             allowNull: false,
         });

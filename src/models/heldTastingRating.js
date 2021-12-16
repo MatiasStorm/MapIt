@@ -11,9 +11,17 @@ class HeldTastingRating extends Model {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
+            heldTastingId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
+            userId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
         };
 
-        super.init(structure, { modelName: "HeldTastingRating", sequelize });
+        super.init(structure, { modelName: "heldTastingRating", sequelize });
     }
 }
 

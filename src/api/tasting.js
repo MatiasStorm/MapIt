@@ -36,4 +36,18 @@ router.post("/", authenticateToken, async (req, res) => {
     }
 });
 
+router.put("/:id", authenticateToken, async(req, res) => {
+    let tasting  = await Tasting.findByPk(req.params.id);
+    if(!tasting){
+        return res.status(404).send();
+    }
+    if(tasting.userId !== req.user.id){
+        return res.status(403).send();
+    }
+
+    await tasting.update(req.body);
+
+    return res.status(201).json(tasting);
+})
+
 module.exports = router;

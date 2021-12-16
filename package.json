@@ -9,6 +9,7 @@
     "lint": "eslint ./src ./db",
     "lint-fix": "eslint ./src ./db --fix",
     "migrate": "sequelize-cli db:migrate",
+    "migrate-undo": "sequelize-cli db:migrate:undo",
     "add-migration": "sequelize-cli migration:generate --name ",
     "css-build": "tailwindcss -o ./src/public/css/tailwind.css",
     "css-watch": "tailwindcss -o ./src/public/css/tailwind.css --watch"

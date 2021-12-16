@@ -7,17 +7,34 @@ class HeldTastingItem extends Model {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            imageUrl: {
+            imagePath: {
                 type: DataTypes.STRING,
                 allowNull: true,
+            },
+            heldTastingId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
+            userId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
             },
             description: {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
+            imageUrl: {
+                type: DataTypes.VIRTUAL,
+                get() {
+                    const imageUrl = this.getDataValue("imagePath") ? 
+                        `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`
+                        : "/assets/default_tasting.jpeg";
+                    return imageUrl;
+                },
+            },
         };
 
-        super.init(structure, { modelName: "HeldTastingItem", sequelize });
+        super.init(structure, { modelName: "heldTastingItem", sequelize });
     }
 }
 

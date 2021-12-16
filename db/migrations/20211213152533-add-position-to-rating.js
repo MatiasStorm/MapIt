@@ -7,7 +7,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
         const { DataTypes } = Sequelize;
-        await queryInterface.addColumn("Ratings", "position", {
+        await queryInterface.addColumn("ratings", "position", {
             type: DataTypes.INTEGER,
             allowNull: false,
         });
@@ -20,6 +20,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-        await queryInterface.removeColumn("Ratings", "position");
+        await queryInterface.removeColumn("ratings", "position");
     },
 };

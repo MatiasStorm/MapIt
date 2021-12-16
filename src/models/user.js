@@ -36,11 +36,17 @@ class User extends Model {
             },
         };
 
-        super.init(structure, { modelName: "User", sequelize });
+        super.init(structure, { modelName: "user", sequelize });
     }
 
     static associate(models) {
         User.hasMany(models.Tasting);
+        User.hasMany(models.TastingItem);
+        User.hasMany(models.Rating);
+
+        User.hasMany(models.HeldTasting);
+        User.hasMany(models.HeldTastingItem);
+        User.hasMany(models.HeldTastingRating);
     }
 }
 

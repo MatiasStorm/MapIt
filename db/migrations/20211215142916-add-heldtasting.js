@@ -7,7 +7,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
         const { DataTypes } = Sequelize;
-        await queryInterface.createTable("HeldTastings", {
+        await queryInterface.createTable("heldTastings", {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
@@ -20,7 +20,7 @@ module.exports = {
             isActive: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
-                default: true,
+                default: 1,
             },
             pin: {
                 type: DataTypes.STRING,
@@ -48,6 +48,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-        await queryInterface.dropTable("HeldTastings");
+        await queryInterface.dropTable("heldTastings");
     },
 };

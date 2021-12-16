@@ -9,11 +9,15 @@ class HeldTasting extends Model {
             },
             isActive: {
                 type: DataTypes.BOOLEAN,
-                allowNull: false,
-                default: true,
+                allowNull: true,
+                defaultValue: 1,
             },
             pin: {
                 type: DataTypes.STRING,
+                allowNull: false,
+            },
+            userId: {
+                type: DataTypes.INTEGER,
                 allowNull: false,
             },
             imagePath: {
@@ -23,15 +27,20 @@ class HeldTasting extends Model {
             imageUrl: {
                 type: DataTypes.VIRTUAL,
                 get() {
-                    return `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`;
-                },
-                set() {
-                    throw new Error("Do no try to set the 'imageUrl', set the 'imagePath'");
+                    const imageUrl = this.getDataValue("imagePath") ? 
+                        `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`
+                        : "/assets/default_tasting.jpeg";
+                    return imageUrl;
                 },
             },
         };
 
-        super.init(structure, { modelName: "HeldTasting", sequelize });
+        super.init(structure, { modelName: "heldTasting", sequelize });
+    }
+
+    static associate(models) {
+        HeldTasting.hasMany(models.HeldTastingItem);
+        HeldTasting.hasMany(models.HeldTastingRating);
     }
 }
 

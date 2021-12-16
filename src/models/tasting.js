@@ -18,15 +18,15 @@ class Tasting extends Model {
             imageUrl: {
                 type: DataTypes.VIRTUAL,
                 get() {
-                    return `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`;
-                },
-                set() {
-                    throw new Error("Do no try to set the 'imageUrl', set the 'imagePath'");
+                    const imageUrl = this.getDataValue("imagePath") ? 
+                        `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`
+                        : "/assets/default_tasting.jpeg";
+                    return imageUrl;
                 },
             },
         };
 
-        super.init(structure, { modelName: "Tasting", sequelize });
+        super.init(structure, { modelName: "tasting", sequelize });
     }
 
     static associate(models) {
