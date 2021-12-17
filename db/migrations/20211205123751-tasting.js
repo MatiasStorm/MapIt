@@ -7,7 +7,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
         const { DataTypes } = Sequelize;
-        queryInterface.createTable("tastings", {
+        await queryInterface.createTable("tastings", {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
@@ -48,6 +48,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-        queryInterface.dropTable("tastings");
+        await queryInterface.dropTable("tastings");
     },
 };

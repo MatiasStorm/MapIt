@@ -9,7 +9,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
       const { DataTypes } = Sequelize;
-      queryInterface.changeColumn("heldTastings", "isActive", {
+      await queryInterface.changeColumn("heldTastings", "isActive", {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: 1,
@@ -24,7 +24,7 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
       const { DataTypes } = Sequelize;
-      queryInterface.changeColumn("heldTastings", "isActive", {
+      await queryInterface.changeColumn("heldTastings", "isActive", {
         type: DataTypes.BOOLEAN,
         allowNull: true,
       } )

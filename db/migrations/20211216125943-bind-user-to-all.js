@@ -9,7 +9,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
       const { DataTypes } = Sequelize;
-      queryInterface.addColumn("tastingItems", "userId", {
+      await queryInterface.addColumn("tastingItems", "userId", {
             type: DataTypes.INTEGER,
             references: {
                 model: "users",
@@ -18,7 +18,7 @@ module.exports = {
             onUpdate: "CASCADE",
             onDelete: "CASCADE",
       });
-      queryInterface.addColumn("ratings", "userId", {
+      await queryInterface.addColumn("ratings", "userId", {
             type: DataTypes.INTEGER,
             references: {
                 model: "users",
@@ -27,7 +27,7 @@ module.exports = {
             onUpdate: "CASCADE",
             onDelete: "CASCADE",
       });
-      queryInterface.addColumn("heldTastingItems", "userId", {
+      await queryInterface.addColumn("heldTastingItems", "userId", {
             type: DataTypes.INTEGER,
             references: {
                 model: "users",
@@ -36,7 +36,7 @@ module.exports = {
             onUpdate: "CASCADE",
             onDelete: "CASCADE",
       });
-      queryInterface.addColumn("heldTastingRatings", "userId", {
+      await queryInterface.addColumn("heldTastingRatings", "userId", {
             type: DataTypes.INTEGER,
             references: {
                 model: "users",
@@ -54,9 +54,9 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-      queryInterface.removeColumn("tastingItems", "userId");
-      queryInterface.removeColumn("ratings", "userId");
-      queryInterface.removeColumn("heldTastingItems", "userId");
-      queryInterface.removeColumn("heldTastingRatings", "userId");
+      await queryInterface.removeColumn("tastingItems", "userId");
+      await queryInterface.removeColumn("ratings", "userId");
+      await queryInterface.removeColumn("heldTastingItems", "userId");
+      await queryInterface.removeColumn("heldTastingRatings", "userId");
   }
 };
