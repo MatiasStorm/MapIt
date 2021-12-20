@@ -1,7 +1,7 @@
 const { Tasting } = require("../models");
 const { Op } = require("sequelize");
 const router = require("express").Router();
-const { authenticateToken } = require("../auth");
+const { authenticate } = require("../auth");
 
 router.get("", async (req, res) => {
     const queries = [];
@@ -25,7 +25,7 @@ router.get("/:id", async (req, res) => {
     return res.json(tasting);
 });
 
-router.post("/", authenticateToken, async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
     try {
         req.body.userId = req.user.id;
         const tasting = await Tasting.create(req.body);
@@ -36,18 +36,18 @@ router.post("/", authenticateToken, async (req, res) => {
     }
 });
 
-router.put("/:id", authenticateToken, async(req, res) => {
-    let tasting  = await Tasting.findByPk(req.params.id);
-    if(!tasting){
+router.put("/:id", authenticate, async (req, res) => {
+    const tasting = await Tasting.findByPk(req.params.id);
+    if (!tasting) {
         return res.status(404).send();
     }
-    if(tasting.userId !== req.user.id){
+    if (tasting.userId !== req.user.id) {
         return res.status(403).send();
     }
 
     await tasting.update(req.body);
 
     return res.status(201).json(tasting);
-})
+});
 
 module.exports = router;

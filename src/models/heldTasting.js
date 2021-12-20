@@ -16,6 +16,10 @@ class HeldTasting extends Model {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            currentItem: {
+                type: DataTypes.INTEGER,
+                allowNull: true,
+            },
             userId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
@@ -27,8 +31,8 @@ class HeldTasting extends Model {
             imageUrl: {
                 type: DataTypes.VIRTUAL,
                 get() {
-                    const imageUrl = this.getDataValue("imagePath") ? 
-                        `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`
+                    const imageUrl = this.getDataValue("imagePath")
+                        ? `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`
                         : "/assets/default_tasting.jpeg";
                     return imageUrl;
                 },
@@ -41,6 +45,11 @@ class HeldTasting extends Model {
     static associate(models) {
         HeldTasting.hasMany(models.HeldTastingItem);
         HeldTasting.hasMany(models.HeldTastingRating);
+        HeldTasting.hasOne(models.HeldTastingItem, {
+            foreignKey: {
+                name: "currentItem",
+            },
+        });
     }
 }
 

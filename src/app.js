@@ -16,9 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Used to parse http only jwt cookie
-const cookieParser = require("cookie-parser");
-
-app.use(cookieParser());
+app.use(require("cookie-parser")());
 
 // Register all of the api routes:
 app.use("/api", require("./api"));
@@ -26,10 +24,14 @@ app.use("/api", require("./api"));
 // register all of the routing routes:
 app.use(require("./routes"));
 
-app.get("*", (req, res) => {
-    res.redirect("/");
-});
+// app.get("*", (req, res) => {
+//     res.redirect("/");
+// });
 
-app.listen(port, () => {
+// Add socket io
+const server = require("./socketIO")(app);
+
+// Start server on 'port'
+server.listen(port, () => {
     console.log(`Website hosted at http://localhost:${port}`);
 });

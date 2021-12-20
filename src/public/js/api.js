@@ -26,8 +26,8 @@ class API {
         return this.__executeFetch(url, "POST", { data });
     }
 
-    get(endpoint, id=null) {
-        const url = `${this.baseUrl}/${endpoint}/${id ? id : ""}`;
+    get(endpoint, id = null) {
+        const url = `${this.baseUrl}/${endpoint}/${id || ""}`;
         return this.__executeFetch(url, "GET");
     }
 

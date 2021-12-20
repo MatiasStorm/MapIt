@@ -1,9 +1,9 @@
 const path = require("path");
 const router = require("express").Router();
-const { authenticateToken } = require("../auth.js");
+const { authenticate } = require("../auth.js");
 
 module.exports = (pagePath, createPage) => {
-    router.use(authenticateToken);
+    router.use(authenticate);
 
     router.get("/dashboard", (req, res) => {
         const page = createPage(path.join(pagePath, "dashboard.html"));

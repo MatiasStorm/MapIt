@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const { TastingItem } = require("../models");
-const { authenticateToken } = require("../auth");
+const { authenticate } = require("../auth");
 
 router.get("/:id", async (req, res) => {
     const item = TastingItem.findByPk(req.params.id);
-    if(!item){
+    if (!item) {
         return res.status(404).send();
     }
     return res.status(200).json(item);
@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
     res.status(200).json(tastings);
 });
 
-router.post("/", authenticateToken, async(req, res) => {
+router.post("/", authenticate, async (req, res) => {
     try {
         req.body.userId = req.user.id;
         const tasting = await TastingItem.create(req.body);
@@ -35,14 +35,14 @@ router.post("/", authenticateToken, async(req, res) => {
         console.log(err);
         return res.status(400).json(err.errors);
     }
-})
+});
 
-router.put("/:id",authenticateToken, async(req, res) => {
+router.put("/:id", authenticate, async (req, res) => {
 
-} )
+});
 
-router.delete("/:id",authenticateToken, async(req, res) => {
+router.delete("/:id", authenticate, async (req, res) => {
 
-})
+});
 
 module.exports = router;

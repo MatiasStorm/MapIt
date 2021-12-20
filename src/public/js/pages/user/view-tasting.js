@@ -23,12 +23,11 @@ export default class ViewTasting {
         this.launchTastingButton.render();
         this.launchTastingButton.on("click", () => {
             api.post(api.endpoints.heldTastings, {
-                tastingId: this.tastingId
-            }).then(response => {
-                if(response.redirected){
+                tastingId: this.tastingId,
+            }).then((response) => {
+                if (response.redirected) {
                     window.location.href = response.url;
-                }
-                else {
+                } else {
                     // Display error
                 }
             });

@@ -18,8 +18,8 @@ class Tasting extends Model {
             imageUrl: {
                 type: DataTypes.VIRTUAL,
                 get() {
-                    const imageUrl = this.getDataValue("imagePath") ? 
-                        `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`
+                    const imageUrl = this.getDataValue("imagePath")
+                        ? `${process.env.AWS_BUCKET_ENDPOINT}/${process.env.AWS_BUCKET_NAME}/${this.getDataValue("imagePath")}`
                         : "/assets/default_tasting.jpeg";
                     return imageUrl;
                 },
