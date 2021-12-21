@@ -41,6 +41,7 @@ export default class Button {
         }
         this.button.type = this.options?.type || "button";
         this.button.className = this.getClassName();
+        this.button.innerHTML = this.options?.text || this.button.innerHTML;
 
         this.rendered = true;
         return this;

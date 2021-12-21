@@ -17,10 +17,16 @@ module.exports = (pagePath, createPage) => {
                 }
             }) !== null;
         }
-        const page = createPage(path.join(pagePath, "tasting-room.html"), {
+        let file;
+        if(isOwner){
+            file =  "tasting-room-user.html";
+        }
+        else {
+            file =  "tasting-room-player.html";
+        }
+        const page = createPage(path.join(pagePath, file), {
             id: req.params.id,
             pin: req.params.pin,
-            isOwner
         });
         res.send(page);
     });

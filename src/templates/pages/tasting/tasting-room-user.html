@@ -4,16 +4,14 @@
         <h1 class="text-3xl text-white">
             Room pin: <b>{{pin}}</b>
         </h1>
-        <button id="next-item-button">
-            Next
-        </button>
+        <button id="next-item-button">Next</button>
     </div>
     <div id="tasting-room" class="flex">
         
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script type="module">
-        import TastingRoom from "/js/pages/tasting/tasting-room.js";
-        new TastingRoom("tasting-room", "{{id}}", "{{pin}}", {{isOwner}}).render();
+        import TastingRoomUser from "/js/pages/tasting/tasting-room-user.js";
+        new TastingRoomUser("tasting-room", "{{id}}", "{{pin}}").render();
     </script>
 %%/head%%
