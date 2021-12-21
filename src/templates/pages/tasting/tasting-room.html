@@ -1,7 +1,8 @@
 %%head%%
     <div class="flex justify-between p-3">
-        <h1 id="title" class="text-3xl text-white">
-            
+        <h1 id="title" class="text-3xl text-white"></h1>
+        <h1 class="text-3xl text-white">
+            Room pin: <b>{{pin}}</b>
         </h1>
         <button id="next-item-button">
             Next
@@ -13,6 +14,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script type="module">
         import TastingRoom from "/js/pages/tasting/tasting-room.js";
-        new TastingRoom("tasting-room", "{{id}}", "{{pin}}").render();
+        new TastingRoom("tasting-room", "{{id}}", "{{pin}}", {{isOwner}}).render();
     </script>
 %%/head%%

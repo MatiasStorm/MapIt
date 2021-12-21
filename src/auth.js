@@ -16,7 +16,7 @@ function authenticate(req, res, next) {
 }
 
 async function authorizeSocket(socket, next){
-    const authCookie = socket.cookies.auth;
+    const authCookie = socket.cookies?.auth;
     const token = authCookie?.split(" ")[1];
     if (token === undefined) {
         return next();
@@ -26,6 +26,21 @@ async function authorizeSocket(socket, next){
             return next();
         }
         socket.user = user;
+        next();
+    });
+}
+
+function authorize(req, res, next){
+    const authCookie = req.cookies.auth;
+    const token = authCookie?.split(" ")[1];
+    if (token === undefined) {
+        return next();
+    }
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) {
+            return next();
+        }
+        req.user = user;
         next();
     });
 }
@@ -41,6 +56,7 @@ function signToken(user) {
 
 module.exports = {
     authenticate,
+    authorize,
     authorizeSocket,
     signToken,
 };
