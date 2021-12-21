@@ -7,6 +7,10 @@ class Player extends Model {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            heldTastingId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            }
         };
 
         super.init(structure, { modelName: "player", sequelize });

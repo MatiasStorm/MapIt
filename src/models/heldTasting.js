@@ -45,6 +45,7 @@ class HeldTasting extends Model {
     static associate(models) {
         HeldTasting.hasMany(models.HeldTastingItem);
         HeldTasting.hasMany(models.HeldTastingRating);
+        HeldTasting.hasMany(models.Player);
         HeldTasting.hasOne(models.HeldTastingItem, {
             foreignKey: {
                 name: "currentItem",
