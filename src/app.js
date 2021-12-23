@@ -24,6 +24,15 @@ app.use("/api", require("./api"));
 // register all of the routing routes:
 app.use(require("./routes"));
 
+
+// Add express-session:
+console.log(process.env.SESSION_SECRET);
+const session = require("express-session");
+app.use(session( {
+    secret: process.env.SESSION_SECRET,
+    cookie:  {}
+}));
+
 // app.get("*", (req, res) => {
 //     res.redirect("/");
 // });

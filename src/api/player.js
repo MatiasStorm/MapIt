@@ -14,11 +14,11 @@ router.post("/", async (req, res) => {
         return res.status(400).json({error: "Invalid pin", field: "pin"});
     }
 
-    await Player.create({
+    const player = await Player.create({
         name,
         heldTastingId: heldTasting.id
     });
-    return res.redirect(`/${heldTasting.id}/${pin}`);
+    return res.redirect(`/tasting/${heldTasting.id}/${pin}`);
 })
 
 module.exports = router;

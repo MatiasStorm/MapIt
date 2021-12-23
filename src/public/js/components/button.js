@@ -9,11 +9,7 @@ export default class Button {
         if (!this.rendered) {
             throw new Error(`'${this.id}' button has not been rendered`);
         }
-        switch (type) {
-        case "click":
-            this.button.onclick = callback;
-            break;
-        }
+        this.button.addEventListener(type, callback);
     }
 
     getClassName() {

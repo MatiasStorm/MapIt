@@ -14,13 +14,18 @@ export default class Index {
         this.player = {}
     }
 
+    updatePlayer(key, value){
+        this.player[key] = value;
+    }
+
     render(){
         Object.entries(this.inputs).forEach(([key, input]) => {
             input.render();
-            input.on("input", () => this.updateUserObject(key, input.getValue()));
-            this.user[key] = input.getValue();
+            input.on("input", () => this.updatePlayer(key, input.getValue()));
+            this.player[key] = input.getValue();
         });
         this.enterButton.render().on("click", () => {
+            console.log("click");
             api.post(api.endpoints.player, this.player)
                 .then(res => {
                     if (res.status === 400) {
