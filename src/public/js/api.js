@@ -10,7 +10,7 @@ class API {
         };
     }
 
-    __executeFetch(endpoint, method, { data, headers } = {}) {
+    _executeFetch(endpoint, method, { data, headers } = {}) {
         const options = {};
         options.method = method;
 
@@ -22,14 +22,23 @@ class API {
         return fetch(endpoint, options);
     }
 
+
     post(endpoint, data) {
         const url = `${this.baseUrl}/${endpoint}`;
-        return this.__executeFetch(url, "POST", { data });
+        return this._executeFetch(url, "POST", { data });
     }
 
-    get(endpoint, id = null) {
-        const url = `${this.baseUrl}/${endpoint}/${id || ""}`;
-        return this.__executeFetch(url, "GET");
+
+
+    get(endpoint, id = null, queryParams = {}) {
+        let url = `${this.baseUrl}/${endpoint}/${id || ""}?`;
+        console.log(queryParams, url);
+        Object.entries(queryParams).forEach(([ k, v ]) => {
+            if(k && v){
+                url += `${k}=${v}&`;
+            }
+        });
+        return this._executeFetch(url, "GET");
     }
 
     uploadImage(image) {

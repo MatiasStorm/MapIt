@@ -509,6 +509,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 1rem;
 }
 
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -545,6 +549,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 66.666667%;
 }
 
+.w-1\/6 {
+  width: 16.666667%;
+}
+
 .flex-grow {
   flex-grow: 1;
 }
@@ -559,6 +567,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .content-center {
   align-content: center;
+}
+
+.items-center {
+  align-items: center;
 }
 
 .justify-center {
@@ -618,6 +630,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-width: 2px;
 }
 
+.border-b-2 {
+  border-bottom-width: 2px;
+}
+
+.border-t-2 {
+  border-top-width: 2px;
+}
+
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -647,12 +667,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 0.75rem;
 }
 
-.p-5 {
-  padding: 1.25rem;
-}
-
 .p-2 {
   padding: 0.5rem;
+}
+
+.p-1 {
+  padding: 0.25rem;
 }
 
 .px-4 {
@@ -691,6 +711,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .text-white {

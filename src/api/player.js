@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Player, HeldTasting } = require("../models");
+const { Op } = require("sequelize");
 
 
 router.post("/", async (req, res) => {
@@ -18,7 +19,29 @@ router.post("/", async (req, res) => {
         name,
         heldTastingId: heldTasting.id
     });
-    return res.redirect(`/tasting/${heldTasting.id}/${pin}`);
+    req.session.player = player;
+    const url = `/tasting/${heldTasting.id}/${pin}`;
+    req.session.url = url ;
+    return res.redirect(url);
+});
+
+router.get("/", async(req, res) => {
+    const queries = [];
+    if(req.query?.whoAmI){
+        if(!req.session?.player){
+            return res.redirect("/");
+        }
+        return res.status(200).json(req.session?.player);
+    }
+    if (req.query?.heldTastingId) {
+        queries.push({ heldTastingId: req.query.heldTastingId });
+    }
+    const players = await Player.findAll({
+        where: {
+            [Op.and]: queries,
+        },
+    });
+    res.status(200).json(players);
 })
 
 module.exports = router;

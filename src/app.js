@@ -12,11 +12,19 @@ const port = 8080;
 
 app.use(express.static(path.join(__dirname, "/public")));
 
+// Add express-session:
+const session = require("express-session");
+app.use(session( {
+    secret: process.env.SESSION_SECRET,
+    cookie:  {}
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Used to parse http only jwt cookie
 app.use(require("cookie-parser")());
+
 
 // Register all of the api routes:
 app.use("/api", require("./api"));
@@ -24,14 +32,6 @@ app.use("/api", require("./api"));
 // register all of the routing routes:
 app.use(require("./routes"));
 
-
-// Add express-session:
-console.log(process.env.SESSION_SECRET);
-const session = require("express-session");
-app.use(session( {
-    secret: process.env.SESSION_SECRET,
-    cookie:  {}
-}));
 
 // app.get("*", (req, res) => {
 //     res.redirect("/");

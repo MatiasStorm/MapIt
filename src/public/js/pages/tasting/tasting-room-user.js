@@ -1,5 +1,6 @@
 import api from "../../api.js";
 import Button from "/js/components/button.js";
+import PlayerList from "../../components/playerList.js";
 
 export default class TastingRoomUser {
     constructor(id, heldTastingId, pin) {
@@ -12,6 +13,7 @@ export default class TastingRoomUser {
         this.heldTasting = {};
         this.socket = io(`/${this.pin}`);
         this.nextItemButton = new Button("next-item-button", {size: "lg"});
+        this.playerList = new PlayerList("player-list", heldTastingId, this.socket);
     }
 
     fetchHeldTasting() {
@@ -29,5 +31,6 @@ export default class TastingRoomUser {
             console.log("next");
             this.socket.emit("next")
         });
+        this.playerList.render();
     }
 }

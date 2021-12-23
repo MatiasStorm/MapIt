@@ -13,6 +13,19 @@ export default class TastingRoomPlayer {
         this.socket = io(`/${this.pin}`);
     }
 
+    fetchPlayer(){
+        api.get(api.endpoints.player, null, {whoAmI: true})
+            .then(async (res) => { 
+                if(res.redirected){
+                    window.location.href = res.url;
+                }
+                else {
+                    this.player = await res.json() 
+                    document.getElementById("name").innerText = this.player.name;
+                }
+            });
+    }
+
     fetchHeldTasting() {
         api.get(api.endpoints.heldTastings, this.heldTastingId)
             .then((res) => res.json())
@@ -24,5 +37,6 @@ export default class TastingRoomPlayer {
 
     render() {
         this.fetchHeldTasting();
+        this.fetchPlayer();
     }
 }

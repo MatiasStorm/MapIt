@@ -9,6 +9,9 @@ const templater = require("../templater")({ componentPath });
 const createPage = (file, variables) => templater.compile(file, variables);
 
 router.get("/", (req, res) => {
+    if(req.session?.player){
+        res.redirect(req.session.url);
+    }
     res.send(createPage(`${pagePath}/index.html`));
 });
 

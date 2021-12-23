@@ -2,6 +2,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const { authorizeSocket: authorize } = require("./auth");
 const cookie = require('cookie')
+const { Player } = require("./models");
 
 
 function parseCookie(socket, next){
@@ -28,8 +29,8 @@ module.exports = (app) => {
     room.use(async (socket, next) => {await authorize(socket, next)});
 
     room.on("connection", (socket) => {
-        console.log("Connected socket");
-        console.log(socket.user);
+
+        room.emit("player connected");
 
         socket.on("next", () => {
             if(socket.user){
