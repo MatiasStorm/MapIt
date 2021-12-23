@@ -16,7 +16,7 @@ class HeldTasting extends Model {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            currentItem: {
+            currentItemPosition: {
                 type: DataTypes.INTEGER,
                 allowNull: true,
             },
@@ -46,11 +46,6 @@ class HeldTasting extends Model {
         HeldTasting.hasMany(models.HeldTastingItem);
         HeldTasting.hasMany(models.HeldTastingRating);
         HeldTasting.hasMany(models.Player);
-        HeldTasting.hasOne(models.HeldTastingItem, {
-            foreignKey: {
-                name: "currentItem",
-            },
-        });
     }
 }
 

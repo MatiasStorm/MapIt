@@ -12,6 +12,10 @@ export default class Button {
         this.button.addEventListener(type, callback);
     }
 
+    setText(text){
+        this.button.innerText = text;
+    }
+
     getClassName() {
         let classes = "rounded ";
         classes += this.options?.light ? " bg-gray-100 hover:bg-gray-200 " : " bg-gray-800 text-white hover:bg-gray-900 ";

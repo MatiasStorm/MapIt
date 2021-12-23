@@ -2,7 +2,8 @@ const http = require("http");
 const { Server } = require("socket.io");
 const { authorizeSocket: authorize } = require("./auth");
 const cookie = require('cookie')
-const { Player } = require("./models");
+const { Op } = require("sequelize");
+const { Player, HeldTasting, HeldTastingItem, HeldTastingRating } = require("./models");
 
 
 function parseCookie(socket, next){
@@ -19,6 +20,27 @@ function parseCookie(socket, next){
     next();
 }
 
+async function getNextTastingItem(id){
+    const heldTasting = await HeldTasting.findByPk(id);
+    if(!heldTasting.currentItemPosition){
+        heldTasting.currentItemPosition = 1;
+    }
+    else {
+        heldTasting.currentItemPosition += 1;
+    }
+
+    const item = await HeldTastingItem.findOne({
+        where: {
+            [Op.and]: [
+                { position: heldTasting.currentItemPosition },
+                { heldTastingId: heldTasting.id }
+            ]
+        }
+    });
+
+    return item;
+}
+
 module.exports = (app) => {
     const server = http.createServer(app);
 
@@ -32,9 +54,16 @@ module.exports = (app) => {
 
         room.emit("player connected");
 
-        socket.on("next", () => {
+        socket.on("next", async (heldTasting) => {
             if(socket.user){
-                console.log("Display next wine");
+                const item = await getNextTastingItem(heldTasting.id);
+                if(item){
+                    room.emit("next", item);
+                }
+                else {
+                    // set heldTasting active to false.
+                    room.emit("end");
+                }
             }
             else {
                 console.log("Not allowed");

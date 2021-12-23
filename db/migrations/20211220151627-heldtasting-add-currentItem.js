@@ -9,12 +9,6 @@ module.exports = {
         const { DataTypes } = Sequelize;
         await queryInterface.addColumn("heldTastings", "currentItem", {
             type: DataTypes.INTEGER,
-            references: {
-                model: "users",
-                key: "id",
-            },
-            onUpdate: "SET NULL",
-            onDelete: "SET NULL",
         });
     },
 
