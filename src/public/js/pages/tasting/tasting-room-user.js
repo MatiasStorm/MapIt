@@ -24,6 +24,9 @@ export default class TastingRoomUser {
         this.socket.on("next", (item) => {
             this.item.setItem(item).render();
         });
+        this.socket.on("end", () => {
+            console.log("Ending tasting");
+        })
     }
 
     fetchHeldTasting() {
@@ -32,6 +35,11 @@ export default class TastingRoomUser {
             .then((heldTasting) => {
                 this.heldTasting = heldTasting;
                 document.getElementById("title").innerText = heldTasting.title;
+                if(this.heldTasting.heldTastingItems?.length > 0){
+                    this.item.setItem(this.heldTasting.heldTastingItems[0]).render();
+                    this.nextItemButton.setText("Next");
+                    this.started = true;
+                }
             });
     }
 

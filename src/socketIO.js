@@ -29,6 +29,8 @@ async function getNextTastingItem(id){
         heldTasting.currentItemPosition += 1;
     }
 
+    await heldTasting.save();
+
     const item = await HeldTastingItem.findOne({
         where: {
             [Op.and]: [

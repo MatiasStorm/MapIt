@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { authenticate } = require("../auth");
+const { where, col, Association } = require("sequelize");
 const {
     Tasting,
     HeldTasting,
@@ -11,7 +12,7 @@ const {
 
 function generatePin() {
     const values = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-    const length = 8;
+    const length = 6;
     let pin = "";
     for (i = 0; i < length; i++) {
         pin += values[Math.floor(Math.random() * (values.length - 1))];
@@ -19,7 +20,19 @@ function generatePin() {
     return pin;
 }
 
-router.get("/:id", async (req, res) => res.json(await HeldTasting.findByPk(req.params.id)));
+router.get("/:id", async (req, res) => { 
+    const heldTasting = await HeldTasting.findByPk(req.params.id, {
+        include: 
+            {
+                model: HeldTastingItem,
+                on: {
+                    id: where(col("heldTasting.id"), "=", col("heldTastingItems.heldTastingId")),
+                    position: where(col("heldTasting.currentItemPosition"), "=", col("heldTastingItems.position"))
+                },
+            }
+    });
+    res.json(heldTasting);
+});
 
 router.post("/", authenticate, async (req, res) => {
     const userId = req.user.id;
