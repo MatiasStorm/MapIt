@@ -1,3 +1,9 @@
 {
-    "ext": "js, mjs, json"
+    "ext": "js, mjs, json",
+    "watch": [
+        "src/*.js", 
+        "src/api/**/*.js", 
+        "src/models/**/*.js",
+        "src/routes/**/*.js"
+    ]
 }
