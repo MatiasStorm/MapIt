@@ -1,5 +1,6 @@
 import api from "../../api.js";
-import Button from "/js/components/button.js";
+import PlayerList from "../../components/tasting-room/playerList.js";
+import Item from "../../components/tasting-room/item.js";
 
 export default class TastingRoomPlayer {
     constructor(id, heldTastingId, pin) {
@@ -11,6 +12,16 @@ export default class TastingRoomPlayer {
         this.container = document.getElementById(id);
         this.heldTasting = {};
         this.socket = io(`/${this.pin}`);
+
+        this.playerList = new PlayerList("player-list", heldTastingId, this.socket);
+        this.item = new Item("item");
+
+        this.socket.on("next", (item) => {
+            this.item.setItem(item).render();
+        });
+        this.socket.on("end", () => {
+            console.log("Ending tasting");
+        })
     }
 
     fetchPlayer(){
@@ -32,11 +43,15 @@ export default class TastingRoomPlayer {
             .then((heldTasting) => {
                 this.heldTasting = heldTasting;
                 document.getElementById("title").innerText = heldTasting.title;
+                if(this.heldTasting.heldTastingItems?.length > 0){
+                    this.item.setItem(this.heldTasting.heldTastingItems[0]).render();
+                }
             });
     }
 
     render() {
         this.fetchHeldTasting();
         this.fetchPlayer();
+        this.playerList.render();
     }
 }

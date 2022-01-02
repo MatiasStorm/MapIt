@@ -47,12 +47,13 @@ module.exports = (app) => {
     const server = http.createServer(app);
 
     const io = new Server(server);
-    const room = io.of(/^\/[0-9]{8}/); // HeldTasting-pin namespace
+    const room = io.of(/^\/[0-9]{6}/); // HeldTasting-pin namespace
 
     room.use(parseCookie);
     room.use(async (socket, next) => {await authorize(socket, next)});
 
     room.on("connection", (socket) => {
+        console.log("connected");
 
         room.emit("player connected");
 

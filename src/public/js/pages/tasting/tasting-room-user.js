@@ -15,6 +15,7 @@ export default class TastingRoomUser {
         this.container = document.getElementById(id);
 
         this.socket = io(`/${this.pin}`);
+        console.log(this.pin);
 
         this.nextItemButton = new Button("next-item-button", {size: "lg"});
         this.playerList = new PlayerList("player-list", heldTastingId, this.socket);
