@@ -2,6 +2,7 @@ import api from "../../api.js";
 import Button from "/js/components/button.js";
 import PlayerList from "../../components/tasting-room/playerList.js";
 import Item from "../../components/tasting-room/item.js";
+import RatingView from "../../components/tasting-room/ratingView.js";
 
 export default class TastingRoomUser {
     constructor(id, heldTastingId, pin) {
@@ -15,16 +16,23 @@ export default class TastingRoomUser {
         this.container = document.getElementById(id);
 
         this.socket = io(`/${this.pin}`);
-        console.log(this.pin);
 
         this.nextItemButton = new Button("next-item-button", {size: "lg"});
         this.playerList = new PlayerList("player-list", heldTastingId, this.socket);
 
         this.item = new Item("item");
+        this.ratingView = new RatingView("ratings", this.heldTastingId);
+
+        this.bindSocket();
+    }
+
+    bindSocket(){
+        this.socket.on("player connected", () => this.playerList.fetchPlayers());
 
         this.socket.on("next", (item) => {
             this.item.setItem(item).render();
         });
+
         this.socket.on("end", () => {
             console.log("Ending tasting");
         })
@@ -46,6 +54,7 @@ export default class TastingRoomUser {
 
     render() {
         this.fetchHeldTasting();
+        this.ratingView.fetchRatings();
         this.nextItemButton.render().on("click", () => {
             if(!this.started){
                 this.started = true;
@@ -53,6 +62,5 @@ export default class TastingRoomUser {
             }
             this.socket.emit("next", {id: this.heldTastingId});
         });
-        this.playerList.render();
     }
 }

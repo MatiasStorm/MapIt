@@ -1,15 +1,14 @@
 import api from "/js/api.js";
 
 export default class PlayerList{
-    constructor(id, heldTastingId, socket, options){
+    constructor(id, heldTastingId){
         this.container = document.getElementById(id);
         this.heldTastingId = heldTastingId;
-        socket.on("player connected", () => this.fetchPlayers());
         this.players = [];
     }
 
     fetchPlayers(){
-        api.get("players", null, {heldTastingId: this.heldTastingId} )
+        api.get(api.endpoints.player, null, {heldTastingId: this.heldTastingId} )
             .then(res => res.json())
             .then( players => {
                 this.players = players;
@@ -29,9 +28,5 @@ export default class PlayerList{
             `;
         });
         return html;
-    }
-
-
-    render(){
     }
 }

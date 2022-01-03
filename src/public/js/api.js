@@ -6,6 +6,7 @@ class API {
             tasting: "tastings",
             rating: "ratings",
             heldTastings: "heldTastings",
+            heldTastingRating: "heldTastingRatings",
             player: "players"
         };
     }
