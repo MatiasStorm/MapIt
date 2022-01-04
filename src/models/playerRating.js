@@ -17,7 +17,7 @@ class PlayerRating extends Model {
             }
         };
 
-        super.init(structure, { modelName: "player", sequelize });
+        super.init(structure, { modelName: "playerRating", sequelize });
     }
 
     static associate(models){
@@ -26,4 +26,4 @@ class PlayerRating extends Model {
     }
 }
 
-module.exports = Player;
+module.exports = PlayerRating;
