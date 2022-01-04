@@ -8,9 +8,12 @@ router.get("/", async (req, res) => {
                 heldTastingId: req.query.heldTastingId
             }
         });
-        return res.json(ratings);
+        const data = {
+            ratings
+        };
+        return res.json(data);
     }
-    return res.json([]);
+    return res.json({});
 });
 
 module.exports = router;
