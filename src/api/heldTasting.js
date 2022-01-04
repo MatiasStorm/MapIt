@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { authenticate } = require("../auth");
 const { where, col, Association } = require("sequelize");
+const { authenticate } = require("../auth");
 const {
     Tasting,
     HeldTasting,
@@ -20,16 +20,16 @@ function generatePin() {
     return pin;
 }
 
-router.get("/:id", async (req, res) => { 
+router.get("/:id", async (req, res) => {
     const heldTasting = await HeldTasting.findByPk(req.params.id, {
-        include: 
+        include:
             {
                 model: HeldTastingItem,
                 on: {
                     id: where(col("heldTasting.id"), "=", col("heldTastingItems.heldTastingId")),
-                    position: where(col("heldTasting.currentItemPosition"), "=", col("heldTastingItems.position"))
+                    position: where(col("heldTasting.currentItemPosition"), "=", col("heldTastingItems.position")),
                 },
-            }
+            },
     });
     res.json(heldTasting);
 });

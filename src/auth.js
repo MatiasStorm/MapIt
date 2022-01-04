@@ -15,7 +15,7 @@ function authenticate(req, res, next) {
     });
 }
 
-async function authorizeSocket(socket, next){
+async function authorizeSocket(socket, next) {
     const authCookie = socket.cookies?.auth;
     const token = authCookie?.split(" ")[1];
     if (token === undefined) {
@@ -30,7 +30,7 @@ async function authorizeSocket(socket, next){
     });
 }
 
-function authorize(req, res, next){
+function authorize(req, res, next) {
     const authCookie = req.cookies.auth;
     const token = authCookie?.split(" ")[1];
     if (token === undefined) {

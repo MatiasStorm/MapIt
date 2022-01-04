@@ -1,15 +1,13 @@
-'use strict';
-
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+    up: async (queryInterface, Sequelize) => {
     /**
      * Add altering commands here.
      *
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-      const { DataTypes } = Sequelize;
-      await queryInterface.createTable('playerRatings', {
+        const { DataTypes } = Sequelize;
+        await queryInterface.createTable("playerRatings", {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
@@ -37,22 +35,22 @@ module.exports = {
             },
             value: {
                 type: DataTypes.INTEGER,
-                allowNull: false
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,
                 type: DataTypes.DATE,
             },
-      })
-  },
+        });
+    },
 
-  down: async (queryInterface) => {
+    down: async (queryInterface) => {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
-      await queryInterface.dropTable("playerRatings");
-  }
+        await queryInterface.dropTable("playerRatings");
+    },
 };

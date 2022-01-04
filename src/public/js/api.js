@@ -7,7 +7,7 @@ class API {
             rating: "ratings",
             heldTastings: "heldTastings",
             heldTastingRating: "heldTastingRatings",
-            player: "players"
+            player: "players",
         };
     }
 
@@ -23,19 +23,16 @@ class API {
         return fetch(endpoint, options);
     }
 
-
     post(endpoint, data) {
         const url = `${this.baseUrl}/${endpoint}`;
         return this._executeFetch(url, "POST", { data });
     }
 
-
-
     get(endpoint, id = null, queryParams = {}) {
         let url = `${this.baseUrl}/${endpoint}/${id || ""}?`;
         console.log(queryParams, url);
-        Object.entries(queryParams).forEach(([ k, v ]) => {
-            if(k && v){
+        Object.entries(queryParams).forEach(([k, v]) => {
+            if (k && v) {
                 url += `${k}=${v}&`;
             }
         });

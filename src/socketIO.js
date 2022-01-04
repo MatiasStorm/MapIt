@@ -1,18 +1,19 @@
 const http = require("http");
 const { Server } = require("socket.io");
-const { authorizeSocket: authorize } = require("./auth");
-const cookie = require('cookie')
+const cookie = require("cookie");
 const { Op } = require("sequelize");
-const { Player, HeldTasting, HeldTastingItem, HeldTastingRating } = require("./models");
+const { authorizeSocket: authorize } = require("./auth");
+const {
+    Player, HeldTasting, HeldTastingItem, HeldTastingRating,
+} = require("./models");
 
-
-function parseCookie(socket, next){
-    if(socket.cookies){
+function parseCookie(socket, next) {
+    if (socket.cookies) {
         return next();
     }
     const cookies = socket.handshake.headers.cookie;
 
-    if(!cookies){
+    if (!cookies) {
         return next();
     }
 
@@ -20,12 +21,11 @@ function parseCookie(socket, next){
     next();
 }
 
-async function getNextTastingItem(id){
+async function getNextTastingItem(id) {
     const heldTasting = await HeldTasting.findByPk(id);
-    if(!heldTasting.currentItemPosition){
+    if (!heldTasting.currentItemPosition) {
         heldTasting.currentItemPosition = 1;
-    }
-    else {
+    } else {
         heldTasting.currentItemPosition += 1;
     }
 
@@ -35,9 +35,9 @@ async function getNextTastingItem(id){
         where: {
             [Op.and]: [
                 { position: heldTasting.currentItemPosition },
-                { heldTastingId: heldTasting.id }
-            ]
-        }
+                { heldTastingId: heldTasting.id },
+            ],
+        },
     });
 
     return item;
@@ -50,7 +50,7 @@ module.exports = (app) => {
     const room = io.of(/^\/[0-9]{6}/); // HeldTasting-pin namespace
 
     room.use(parseCookie);
-    room.use(async (socket, next) => {await authorize(socket, next)});
+    room.use(async (socket, next) => { await authorize(socket, next); });
 
     room.on("connection", (socket) => {
         console.log("connected");
@@ -58,21 +58,19 @@ module.exports = (app) => {
         room.emit("player connected");
 
         socket.on("next", async (heldTasting) => {
-            if(socket.user){
+            if (socket.user) {
                 const item = await getNextTastingItem(heldTasting.id);
-                if(item){
+                if (item) {
                     room.emit("next", item);
-                }
-                else {
+                } else {
                     // set heldTasting active to false.
                     room.emit("end");
                 }
-            }
-            else {
+            } else {
                 console.log("Not allowed");
             }
         });
     });
-    
+
     return server;
 };

@@ -21,17 +21,16 @@ export default class TastingRoomPlayer {
         });
         this.socket.on("end", () => {
             console.log("Ending tasting");
-        })
+        });
     }
 
-    fetchPlayer(){
-        api.get(api.endpoints.player, null, {whoAmI: true})
-            .then(async (res) => { 
-                if(res.redirected){
+    fetchPlayer() {
+        api.get(api.endpoints.player, null, { whoAmI: true })
+            .then(async (res) => {
+                if (res.redirected) {
                     window.location.href = res.url;
-                }
-                else {
-                    this.player = await res.json() 
+                } else {
+                    this.player = await res.json();
                     document.getElementById("name").innerText = this.player.name;
                 }
             });
@@ -43,7 +42,7 @@ export default class TastingRoomPlayer {
             .then((heldTasting) => {
                 this.heldTasting = heldTasting;
                 document.getElementById("title").innerText = heldTasting.title;
-                if(this.heldTasting.heldTastingItems?.length > 0){
+                if (this.heldTasting.heldTastingItems?.length > 0) {
                     this.item.setItem(this.heldTasting.heldTastingItems[0]).render();
                 }
             });

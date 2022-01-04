@@ -13,14 +13,14 @@ class PlayerRating extends Model {
             },
             value: {
                 type: DataTypes.INTEGER,
-                allowNull: false
-            }
+                allowNull: false,
+            },
         };
 
         super.init(structure, { modelName: "playerRating", sequelize });
     }
 
-    static associate(models){
+    static associate(models) {
         PlayerRating.belongsTo(models.Player);
         PlayerRating.belongsTo(models.HeldTastingRating);
     }

@@ -14,9 +14,10 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 // Add express-session:
 const session = require("express-session");
-app.use(session( {
+
+app.use(session({
     secret: process.env.SESSION_SECRET,
-    cookie:  {}
+    cookie: {},
 }));
 
 app.use(express.json());
@@ -25,13 +26,11 @@ app.use(express.urlencoded({ extended: true }));
 // Used to parse http only jwt cookie
 app.use(require("cookie-parser")());
 
-
 // Register all of the api routes:
 app.use("/api", require("./api"));
 
 // register all of the routing routes:
 app.use(require("./routes"));
-
 
 // app.get("*", (req, res) => {
 //     res.redirect("/");

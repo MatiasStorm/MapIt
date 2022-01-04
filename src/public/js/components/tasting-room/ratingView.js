@@ -4,10 +4,10 @@ export default class RatingView {
     static modes = {
         view: "view",
         rate: "rate",
-        hide: "hide"
-    }
+        hide: "hide",
+    };
 
-    constructor(id, heldTastingId, mode, options = {}){
+    constructor(id, heldTastingId, mode, options = {}) {
         this.id = id;
         this.container = document.getElementById(this.id);
         this.heldTastingId = heldTastingId;
@@ -15,46 +15,46 @@ export default class RatingView {
         this.mode = mode || RatingView.modes.view;
     }
 
-    fetchRatings(){
+    fetchRatings() {
         api.get(api.endpoints.heldTastingRating, null, { heldTastingId: this.heldTastingId })
-            .then(res => res.json())
-            .then( ratings => {
+            .then((res) => res.json())
+            .then((ratings) => {
                 this.ratings = ratings;
-                if(this.mode !== RatingView.modes.hide){
+                if (this.mode !== RatingView.modes.hide) {
                     this.render();
                 }
             });
     }
 
-    setViewMode(mode){
-        if(this.mode !== mode){
+    setViewMode(mode) {
+        if (this.mode !== mode) {
             // rerender
         }
         this.mode = mode;
     }
 
-    getRateHtml(){
+    getRateHtml() {
 
     }
 
-    getViewHtml(){
+    getViewHtml() {
         return "Viewing";
     }
 
-    render(){
-        if(!this.ratings){
+    render() {
+        if (!this.ratings) {
             return;
         }
-        switch(this.mode){
-            case RatingView.modes.hide:
-                this.container.hidden = true;
-                break;
-            case RatingView.modes.rate:
-                this.container.innerHTML = this.getRateHtml();
-                break;
-            case RatingView.modes.view:
-                this.container.innerHTML = this.getViewHtml();
-                break;
+        switch (this.mode) {
+        case RatingView.modes.hide:
+            this.container.hidden = true;
+            break;
+        case RatingView.modes.rate:
+            this.container.innerHTML = this.getRateHtml();
+            break;
+        case RatingView.modes.view:
+            this.container.innerHTML = this.getViewHtml();
+            break;
         }
     }
 }

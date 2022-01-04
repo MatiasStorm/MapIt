@@ -12,7 +12,7 @@ export default class Button {
         this.button.addEventListener(type, callback);
     }
 
-    setText(text){
+    setText(text) {
         this.button.innerText = text;
     }
 

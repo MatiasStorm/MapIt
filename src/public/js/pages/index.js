@@ -1,9 +1,9 @@
 import Button from "/js/components/button.js";
 import Input from "/js/components/input.js";
-import api from "/js/api.js"
+import api from "/js/api.js";
 
 export default class Index {
-    constructor(){
+    constructor() {
         this.enterButton = new Button("enter-button");
         const extraClasses = "my-1";
         this.inputs = {
@@ -11,14 +11,14 @@ export default class Index {
             name: new Input("name", { extraClasses }),
         };
 
-        this.player = {}
+        this.player = {};
     }
 
-    updatePlayer(key, value){
+    updatePlayer(key, value) {
         this.player[key] = value;
     }
 
-    render(){
+    render() {
         Object.entries(this.inputs).forEach(([key, input]) => {
             input.render();
             input.on("input", () => this.updatePlayer(key, input.getValue()));
@@ -27,15 +27,13 @@ export default class Index {
         this.enterButton.render().on("click", () => {
             console.log("click");
             api.post(api.endpoints.player, this.player)
-                .then(res => {
+                .then((res) => {
                     if (res.status === 400) {
                         // Invalid pin or name
                     } else if (res.redirected) {
                         window.location.href = res.url;
                     }
-                })
-        })
+                });
+        });
     }
 }
-
-

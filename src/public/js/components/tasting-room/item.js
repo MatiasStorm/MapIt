@@ -1,15 +1,15 @@
-export default class Item{
-    constructor(id){
+export default class Item {
+    constructor(id) {
         this.container = document.getElementById(id);
         this.item = {};
     }
 
-    setItem(item){
+    setItem(item) {
         this.item = item;
         return this;
     }
 
-    getHtml(){
+    getHtml() {
         return `
             <h1 class="text-3xl text-center text-white">
                 ${this.item.title}
@@ -20,10 +20,10 @@ export default class Item{
                     ${this.item.description || ""}
                 </p>
             </div>
-        `
+        `;
     }
 
-    render(){
+    render() {
         this.container.innerHTML = this.getHtml();
         return this;
     }
