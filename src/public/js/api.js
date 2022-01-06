@@ -8,6 +8,7 @@ class API {
             heldTastings: "heldTastings",
             heldTastingRating: "heldTastingRatings",
             player: "players",
+            playerRating: "playerRatings",
         };
     }
 

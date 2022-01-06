@@ -7,3 +7,5 @@ exports.Rating = require("./rating");
 exports.HeldTasting = require("./heldTasting");
 exports.HeldTastingItem = require("./heldTastingItem");
 exports.HeldTastingRating = require("./heldTastingRating");
+
+exports.PlayerRating = require("./playerRating");

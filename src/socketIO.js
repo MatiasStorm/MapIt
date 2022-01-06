@@ -4,7 +4,7 @@ const cookie = require("cookie");
 const { Op } = require("sequelize");
 const { authorizeSocket: authorize } = require("./auth");
 const {
-    Player, HeldTasting, HeldTastingItem, HeldTastingRating,
+    Player, HeldTasting, HeldTastingItem, HeldTastingRating, PlayerRating
 } = require("./models");
 
 function parseCookie(socket, next) {
@@ -70,6 +70,10 @@ module.exports = (app) => {
                 console.log("Not allowed");
             }
         });
+
+        socket.on("rate", async(playerRatings) => {
+            console.log(playerRatings);
+        })
     });
 
     return server;

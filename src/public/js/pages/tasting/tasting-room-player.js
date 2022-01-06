@@ -1,6 +1,7 @@
 import api from "../../api.js";
 import PlayerList from "../../components/tasting-room/playerList.js";
 import Item from "../../components/tasting-room/item.js";
+import RatingView from "../../components/tasting-room/ratingView.js";
 
 export default class TastingRoomPlayer {
     constructor(id, heldTastingId, pin) {
@@ -14,11 +15,19 @@ export default class TastingRoomPlayer {
         this.socket = io(`/${this.pin}`);
 
         this.playerList = new PlayerList("player-list", heldTastingId, this.socket);
+        this.ratingView = new RatingView("ratings", this.heldTastingId, this.socket, RatingView.modes.rate);
         this.item = new Item("item");
+
+        this.bindSocket();
+    }
+
+    bindSocket(){
+        this.socket.on("player connected", () => this.playerList.fetchPlayers());
 
         this.socket.on("next", (item) => {
             this.item.setItem(item).render();
         });
+
         this.socket.on("end", () => {
             console.log("Ending tasting");
         });
@@ -50,7 +59,7 @@ export default class TastingRoomPlayer {
 
     render() {
         this.fetchHeldTasting();
+        this.ratingView.fetchRatings();
         this.fetchPlayer();
-        this.playerList.render();
     }
 }

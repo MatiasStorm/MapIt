@@ -21,7 +21,7 @@ export default class TastingRoomUser {
         this.playerList = new PlayerList("player-list", heldTastingId, this.socket);
 
         this.item = new Item("item");
-        this.ratingView = new RatingView("ratings", this.heldTastingId);
+        this.ratingView = new RatingView("ratings", this.heldTastingId, this.socket);
 
         this.bindSocket();
     }
