@@ -34,7 +34,7 @@ export default class TastingRoomUser {
         });
 
         this.socket.on("end", () => {
-            console.log("Ending tasting");
+            window.location.reload();
         });
     }
 

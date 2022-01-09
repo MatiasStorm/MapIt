@@ -5,20 +5,15 @@ const { HeldTasting } = require("../models");
 const { authorize } = require("../auth");
 
 module.exports = (pagePath, createPage) => {
-    router.get("/:id/:pin", authorize, (req, res) => {
-        let isOwner = false;
-        if (req.user) {
-            isOwner = HeldTasting.findOne({
-                where: {
-                    [Op.and]: [
-                        { id: req.params.id },
-                        { userId: req.user.id },
-                    ],
-                },
-            }) !== null;
-        }
+    router.get("/:id/:pin", authorize, async (req, res) => {
+        const heldTasting = await HeldTasting.findOne({
+            where: { id: req.params.id },
+        });
         let file;
-        if (isOwner) {
+        if(!heldTasting.isActive){
+            file = "held-tasting.html";
+        }
+        if (heldTasting.userId === req.user?.id) {
             file = "tasting-room-user.html";
         } else {
             file = "tasting-room-player.html";
@@ -32,3 +27,4 @@ module.exports = (pagePath, createPage) => {
 
     return router;
 };
+

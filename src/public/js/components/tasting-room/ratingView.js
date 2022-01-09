@@ -23,7 +23,6 @@ export default class RatingView {
 
     bindSocket(){
         this.socket.on("rate", (ratings) => {
-            console.log("Rate recieved", ratings);
             this.ratings = ratings;
             this.render();
         });

@@ -31,7 +31,6 @@ class API {
 
     get(endpoint, id = null, queryParams = {}) {
         let url = `${this.baseUrl}/${endpoint}/${id || ""}?`;
-        console.log(queryParams, url);
         Object.entries(queryParams).forEach(([k, v]) => {
             if (k && v) {
                 url += `${k}=${v}&`;

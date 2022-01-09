@@ -44,7 +44,7 @@ async function getNextTastingItem(id) {
 
 async function deactivateHeldTasting(id){
     const heldTasting = await HeldTasting.findByPk(id);
-    await heldTasting.update({active: false});
+    await heldTasting.update({isActive: false});
 }
 
 async function getRatings(heldTastingId){
@@ -77,7 +77,6 @@ module.exports = (app) => {
                     room.emit("next", item);
                 } else {
                     await deactivateHeldTasting(heldTasting.id);
-                    // set heldTasting active to false.
                     room.emit("end");
                 }
             } else {
