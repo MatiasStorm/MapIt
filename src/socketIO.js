@@ -39,8 +39,22 @@ async function getNextTastingItem(id) {
             ],
         },
     });
-
     return item;
+}
+
+async function deactivateHeldTasting(id){
+    const heldTasting = await HeldTasting.findByPk(id);
+    await heldTasting.update({active: false});
+}
+
+async function getRatings(heldTastingId){
+    const ratings = await HeldTastingRating.findAll({
+        where: {
+            heldTastingId: heldTastingId,
+        },
+        include: PlayerRating
+    });
+    return ratings;
 }
 
 module.exports = (app) => {
@@ -53,7 +67,6 @@ module.exports = (app) => {
     room.use(async (socket, next) => { await authorize(socket, next); });
 
     room.on("connection", (socket) => {
-        console.log("connected");
 
         room.emit("player connected");
 
@@ -63,6 +76,7 @@ module.exports = (app) => {
                 if (item) {
                     room.emit("next", item);
                 } else {
+                    await deactivateHeldTasting(heldTasting.id);
                     // set heldTasting active to false.
                     room.emit("end");
                 }
@@ -71,8 +85,9 @@ module.exports = (app) => {
             }
         });
 
-        socket.on("rate", async(playerRatings) => {
-            console.log(playerRatings);
+        socket.on("rate", async (heldTastingId) => {
+            const ratings = await getRatings(heldTastingId);
+            room.emit("rate", ratings);
         })
     });
 

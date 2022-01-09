@@ -9,7 +9,6 @@ router.post("/", async (req, res) => {
         r.playerId = req.session.player.id 
         return r;
     });
-    console.log(ratings);
     try {
         await PlayerRating.bulkCreate(ratings);
         return res.status(204).send();

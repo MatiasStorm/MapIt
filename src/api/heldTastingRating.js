@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { HeldTastingRating } = require("../models");
+const { HeldTastingRating, PlayerRating } = require("../models");
 
 router.get("/", async (req, res) => {
     if (req.query.heldTastingId) {
@@ -7,11 +7,9 @@ router.get("/", async (req, res) => {
             where: {
                 heldTastingId: req.query.heldTastingId,
             },
+            include: PlayerRating
         });
-        const data = {
-            ratings,
-        };
-        return res.json(data);
+        return res.json(ratings);
     }
     return res.json({});
 });
