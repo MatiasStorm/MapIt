@@ -26,10 +26,12 @@ export default class TastingRoomPlayer {
 
         this.socket.on("next", (item) => {
             this.item.setItem(item).render();
+            this.ratingView.setHeldTastingItemId(item.id);
+            this.ratingView.setViewMode(RatingView.modes.rate);
         });
 
         this.socket.on("end", () => {
-            console.log("Ending tasting");
+            window.location.reload();
         });
     }
 
@@ -53,6 +55,10 @@ export default class TastingRoomPlayer {
                 document.getElementById("title").innerText = heldTasting.title;
                 if (this.heldTasting.heldTastingItems?.length > 0) {
                     this.item.setItem(this.heldTasting.heldTastingItems[0]).render();
+                    this.ratingView.setHeldTastingItemId(this.heldTasting.heldTastingItems[0].id);
+                }
+                else {
+                    this.ratingView.setViewMode(RatingView.modes.hide);
                 }
             });
     }

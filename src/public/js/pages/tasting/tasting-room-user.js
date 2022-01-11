@@ -31,6 +31,7 @@ export default class TastingRoomUser {
 
         this.socket.on("next", (item) => {
             this.item.setItem(item).render();
+            this.ratingView.setViewMode(RatingView.modes.rate);
         });
 
         this.socket.on("end", () => {
@@ -48,6 +49,9 @@ export default class TastingRoomUser {
                     this.item.setItem(this.heldTasting.heldTastingItems[0]).render();
                     this.nextItemButton.setText("Next");
                     this.started = true;
+                }
+                else{
+                    this.ratingView.setViewMode(RatingView.modes.hide);
                 }
             });
     }

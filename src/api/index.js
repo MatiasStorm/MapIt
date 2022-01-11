@@ -7,6 +7,7 @@ router.use("/tastings", require("./tasting"));
 router.use("/tastingitems", require("./tastingItem"));
 router.use("/image", require("./image"));
 router.use("/heldTastings", require("./heldTasting"));
+router.use("/heldTastingItems", require("./heldTastingItem"));
 router.use("/heldTastingRatings", require("./heldTastingRating"));
 router.use("/playerRatings", require("./playerRating"));
 

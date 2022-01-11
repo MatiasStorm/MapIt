@@ -21,6 +21,10 @@ export default class RatingView {
         this.bindSocket();
     }
 
+    setHeldTastingItemId(id){
+        this.heldTastingItemId = id;
+    }
+
     bindSocket(){
         this.socket.on("rate", (ratings) => {
             this.ratings = ratings;
@@ -84,7 +88,8 @@ export default class RatingView {
             let value = parseInt(document.getElementById("rating-input-" + rating.id).value);
             data.push({
                 value,
-                heldTastingRatingId: rating.id
+                heldTastingRatingId: rating.id,
+                heldTastingItemId: this.heldTastingItemId,
             });
         }
         api.post(api.endpoints.playerRating, data)

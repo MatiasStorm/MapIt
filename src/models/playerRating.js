@@ -11,6 +11,10 @@ class PlayerRating extends Model {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
+            heldTastingItemId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
             value: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
@@ -23,6 +27,7 @@ class PlayerRating extends Model {
     static associate(models) {
         PlayerRating.belongsTo(models.Player);
         PlayerRating.belongsTo(models.HeldTastingRating);
+        PlayerRating.belongsTo(models.HeldTastingItem);
     }
 }
 

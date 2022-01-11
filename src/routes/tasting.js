@@ -13,7 +13,7 @@ module.exports = (pagePath, createPage) => {
         if(!heldTasting.isActive){
             file = "held-tasting.html";
         }
-        if (heldTasting.userId === req.user?.id) {
+        else if (heldTasting.userId === req.user?.id) {
             file = "tasting-room-user.html";
         } else {
             file = "tasting-room-player.html";

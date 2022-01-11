@@ -33,6 +33,16 @@ module.exports = {
                 onUpdate: "CASCADE",
                 onDelete: "CASCADE",
             },
+            heldTastingItemId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                references: {
+                    model: "heldTastingItems",
+                    key: "id",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
+            },
             value: {
                 type: DataTypes.INTEGER,
                 allowNull: false,

@@ -40,6 +40,10 @@ class HeldTastingItem extends Model {
 
         super.init(structure, { modelName: "heldTastingItem", sequelize });
     }
+
+    static associate(models){
+        HeldTastingItem.hasMany(models.PlayerRating);
+    }
 }
 
 module.exports = HeldTastingItem;
