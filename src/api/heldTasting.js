@@ -8,6 +8,7 @@ const {
     HeldTastingItem,
     Rating,
     TastingItem,
+    PlayerRating,
 } = require("../models");
 
 function generatePin() {
@@ -21,6 +22,15 @@ function generatePin() {
 }
 
 router.get("/:id", async (req, res) => {
+    if(req.query?.done){
+        const heldTasting = await HeldTasting.findByPk(req.params.id, {
+            include: [
+                {model: HeldTastingItem, include: [PlayerRating]},
+                {model: HeldTastingRating}
+            ]
+        });
+        return res.status(200).json(heldTasting);
+    }
     const heldTasting = await HeldTasting.findByPk(req.params.id, {
         include:
             {
@@ -31,7 +41,7 @@ router.get("/:id", async (req, res) => {
                 },
             },
     });
-    res.json(heldTasting);
+    return res.json(heldTasting);
 });
 
 router.post("/", authenticate, async (req, res) => {

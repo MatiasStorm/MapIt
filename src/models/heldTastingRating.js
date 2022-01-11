@@ -22,7 +22,7 @@ class HeldTastingRating extends Model {
             average: {
                 type: DataTypes.VIRTUAL,
                 get() {
-                    if (this.playerRatings?.length === 0){
+                    if (!this.playerRatings || this.playerRatings?.length === 0){
                         return null;
                     }
                     const sum = this.playerRatings.reduce(

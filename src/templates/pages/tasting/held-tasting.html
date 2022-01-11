@@ -1,12 +1,15 @@
 %%head%%
     <div class="flex justify-between p-3">
         <h1 id="title" class="text-3xl text-white"></h1>
+        <button id="back">
+            Go back
+        </button>
     </div>
     <div id="items" class="flex justify-between p-5 mt-5">
 
     </div>
     <script type="module">
         import HeldTasting from "/js/pages/tasting/heldTasting.js";
-        new HeldTasting("items", "{{id}}").render();
+        new HeldTasting("items", "{{id}}").fetchHeldTasting();
     </script>
 %%/head%%
