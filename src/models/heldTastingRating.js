@@ -22,22 +22,22 @@ class HeldTastingRating extends Model {
             average: {
                 type: DataTypes.VIRTUAL,
                 get() {
-                    if (!this.playerRatings || this.playerRatings?.length === 0){
+                    if (!this.playerRatings || this.playerRatings?.length === 0) {
                         return null;
                     }
                     const sum = this.playerRatings.reduce(
-                        ( total, p) => total + p.value, 
-                        0
+                        (total, p) => total + p.value,
+                        0,
                     );
                     return (sum / this.playerRatings.length).toFixed(2);
-                }
-            }
+                },
+            },
         };
 
         super.init(structure, { modelName: "heldTastingRating", sequelize });
     }
 
-    static associate(models){
+    static associate(models) {
         HeldTastingRating.hasMany(models.PlayerRating);
     }
 }

@@ -10,10 +10,9 @@ module.exports = (pagePath, createPage) => {
             where: { id: req.params.id },
         });
         let file;
-        if(!heldTasting.isActive){
+        if (!heldTasting.isActive) {
             file = "held-tasting.html";
-        }
-        else if (heldTasting.userId === req.user?.id) {
+        } else if (heldTasting.userId === req.user?.id) {
             file = "tasting-room-user.html";
         } else {
             file = "tasting-room-player.html";
@@ -27,4 +26,3 @@ module.exports = (pagePath, createPage) => {
 
     return router;
 };
-

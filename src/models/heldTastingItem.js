@@ -39,25 +39,25 @@ class HeldTastingItem extends Model {
             averages: {
                 type: DataTypes.VIRTUAL,
                 get() {
-                    if (!this.playerRatings || this.playerRatings?.length === 0){
+                    if (!this.playerRatings || this.playerRatings?.length === 0) {
                         return null;
                     }
                     const averages = {};
-                    const ratingIds = this.playerRatings.map(p => p.heldTastingRatingId);
-                    for(let ratingId of ratingIds){
-                        let filteredRatings = this.playerRatings.filter(p => p.heldTastingRatingId === ratingId);
-                        let sum = filteredRatings.reduce(( total, p) => total + p.value, 0);
-                        averages[ratingId] = ( sum / filteredRatings.length ).toFixed(2);
+                    const ratingIds = this.playerRatings.map((p) => p.heldTastingRatingId);
+                    for (const ratingId of ratingIds) {
+                        const filteredRatings = this.playerRatings.filter((p) => p.heldTastingRatingId === ratingId);
+                        const sum = filteredRatings.reduce((total, p) => total + p.value, 0);
+                        averages[ratingId] = (sum / filteredRatings.length).toFixed(2);
                     }
                     return averages;
-                }
-            }
+                },
+            },
         };
 
         super.init(structure, { modelName: "heldTastingItem", sequelize });
     }
 
-    static associate(models){
+    static associate(models) {
         HeldTastingItem.hasMany(models.PlayerRating);
     }
 }

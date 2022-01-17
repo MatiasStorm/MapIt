@@ -4,7 +4,7 @@ const cookie = require("cookie");
 const { Op } = require("sequelize");
 const { authorizeSocket: authorize } = require("./auth");
 const {
-    Player, HeldTasting, HeldTastingItem, HeldTastingRating, PlayerRating
+    Player, HeldTasting, HeldTastingItem, HeldTastingRating, PlayerRating,
 } = require("./models");
 
 function parseCookie(socket, next) {
@@ -42,17 +42,17 @@ async function getNextTastingItem(id) {
     return item;
 }
 
-async function deactivateHeldTasting(id){
+async function deactivateHeldTasting(id) {
     const heldTasting = await HeldTasting.findByPk(id);
-    await heldTasting.update({isActive: false});
+    await heldTasting.update({ isActive: false });
 }
 
-async function getRatings(heldTastingId){
+async function getRatings(heldTastingId) {
     const ratings = await HeldTastingRating.findAll({
         where: {
-            heldTastingId: heldTastingId,
+            heldTastingId,
         },
-        include: PlayerRating
+        include: PlayerRating,
     });
     return ratings;
 }
@@ -67,7 +67,6 @@ module.exports = (app) => {
     room.use(async (socket, next) => { await authorize(socket, next); });
 
     room.on("connection", (socket) => {
-
         room.emit("player connected");
 
         socket.on("next", async (heldTasting) => {
@@ -87,7 +86,7 @@ module.exports = (app) => {
         socket.on("rate", async (heldTastingId) => {
             const ratings = await getRatings(heldTastingId);
             room.emit("rate", ratings);
-        })
+        });
     });
 
     return server;

@@ -10,7 +10,7 @@ export default class HeldTasting {
     }
 
     fetchHeldTasting() {
-        api.get(api.endpoints.heldTastings, this.heldTastingId, {done: true})
+        api.get(api.endpoints.heldTastings, this.heldTastingId, { done: true })
             .then((res) => res.json())
             .then((heldTasting) => {
                 this.heldTasting = heldTasting;
@@ -18,9 +18,9 @@ export default class HeldTasting {
             });
     }
 
-    getRatingsHtml(averages){
+    getRatingsHtml(averages) {
         let html = "";
-        for(let rating of this.heldTasting.heldTastingRatings){
+        for (const rating of this.heldTasting.heldTastingRatings) {
             html += `
                 <h1 class="text-2xl text-white">
                     ${rating.title}: ${averages[rating.id]}
@@ -34,9 +34,9 @@ export default class HeldTasting {
         `;
     }
 
-    getItemsHtml(){
+    getItemsHtml() {
         let html = "";
-        for(let item of this.heldTasting.heldTastingItems){
+        for (const item of this.heldTasting.heldTastingItems) {
             html += `
                 <div>
                     <h1 class="text-3xl text-center text-white">

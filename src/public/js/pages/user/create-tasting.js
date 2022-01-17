@@ -34,10 +34,12 @@ class CreateTasting {
                 delete tasting.image;
                 tasting.imagePath = imageData.imagePath;
                 api.post(api.endpoints.tasting, tasting)
-                    .then((response) => response.json())
-                    .then((tastingData) => {
-                        console.log(tastingData);
-                        window.location = routes.user.myTastings;
+                    .then((res) => {
+                        if (res.status < 400) {
+                            window.location = routes.user.myTastings;
+                        } else {
+                            console.log(res.body());
+                        }
                     });
             });
     }

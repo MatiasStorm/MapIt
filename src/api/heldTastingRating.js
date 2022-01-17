@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
             where: {
                 heldTastingId: req.query.heldTastingId,
             },
-            include: PlayerRating
+            include: PlayerRating,
         });
         return res.json(ratings);
     }

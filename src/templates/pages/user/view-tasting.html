@@ -2,17 +2,33 @@
     %%userNavbar/%%
     <div class="w-8/12 h-full mx-auto bg-white shadow shadow-black">
         <div class="flex content-center justify-between">
-            <h1 id="title" class="text-4xl inline-block p-3">
+            <h1 id="title" class="inline-block p-3 text-4xl">
 
             </h1>
-            <div class="p-3 space-x-3 flex justify-around">
+            <div class="flex justify-around p-3 space-x-3">
                 <button id="launch-button">
                     Launch Tasting
                 </button>
             </div>
         </div>
-        <div id="tasting-form">
-            
+        <div class="flex flex-col">
+            <div>
+                <button id="edit-tasting">
+                    Edit
+                </button>
+            </div>
+            <h1 class="text-2xl">
+                Ratings
+            </h1>
+            <div id="ratings">
+
+            </div>
+            <h1 class="text-2xl">
+                Items
+            </h1>
+            <div id="items">
+
+            </div>
         </div>
     </div>
     <script type="module">

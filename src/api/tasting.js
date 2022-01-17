@@ -1,7 +1,7 @@
-const { Tasting } = require("../models");
 const { Op } = require("sequelize");
 const router = require("express").Router();
 const { authenticate } = require("../auth");
+const { Tasting, Rating, TastingItem } = require("../models");
 
 router.get("", async (req, res) => {
     const queries = [];
@@ -18,7 +18,12 @@ router.get("", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
-    const tasting = await Tasting.findByPk(id);
+    const tasting = await Tasting.findByPk(id, {
+        include: [
+            Rating,
+            TastingItem,
+        ],
+    });
     if (!tasting) {
         return res.status(404).send();
     }

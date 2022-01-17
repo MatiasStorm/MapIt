@@ -1,5 +1,5 @@
 import api from "/js/api.js";
-import Button from "/js/components/button.js"
+import Button from "/js/components/button.js";
 
 export default class RatingView {
     static modes = {
@@ -16,16 +16,16 @@ export default class RatingView {
         this.mode = mode;
         this.socket = socket;
         this.saveButtonId = "save-button";
-        this.saveButton = new Button(this.saveButtonId, {text: "Rate", size: "lg" });
+        this.saveButton = new Button(this.saveButtonId, { text: "Rate", size: "lg" });
 
         this.bindSocket();
     }
 
-    setHeldTastingItemId(id){
+    setHeldTastingItemId(id) {
         this.heldTastingItemId = id;
     }
 
-    bindSocket(){
+    bindSocket() {
         this.socket.on("rate", (ratings) => {
             this.ratings = ratings;
             this.render();
@@ -52,7 +52,7 @@ export default class RatingView {
 
     getRateHtml() {
         let html = "";
-        for(let rating of this.ratings){
+        for (const rating of this.ratings) {
             html += `
                 <div class="flex flex-grow w-full mb-5">
                     <label for="${rating.id}" class="mr-5">
@@ -82,10 +82,10 @@ export default class RatingView {
         return html;
     }
 
-    postRatings(){
-        let data = [];
-        for(let rating of this.ratings){
-            let value = parseInt(document.getElementById("rating-input-" + rating.id).value);
+    postRatings() {
+        const data = [];
+        for (const rating of this.ratings) {
+            const value = parseInt(document.getElementById(`rating-input-${rating.id}`).value);
             data.push({
                 value,
                 heldTastingRatingId: rating.id,
@@ -93,8 +93,8 @@ export default class RatingView {
             });
         }
         api.post(api.endpoints.playerRating, data)
-            .then(res => {
-                if(res.status < 300){
+            .then((res) => {
+                if (res.status < 300) {
                     this.mode = RatingView.modes.view;
                     this.render();
                     this.socket.emit("rate", this.heldTastingId);
@@ -104,7 +104,7 @@ export default class RatingView {
 
     getViewHtml() {
         let html = "";
-        for(let rating of this.ratings){
+        for (const rating of this.ratings) {
             html += `
                 <div class="flex flex-grow w-full mb-5">
                     <label for="${rating.id}" class="mr-5">
@@ -142,18 +142,18 @@ export default class RatingView {
         }
         this.container.className = "flex flex-col justify-between p-5 ";
         switch (this.mode) {
-            case RatingView.modes.hide:
-                this.container.hidden = true;
-                break;
-            case RatingView.modes.rate:
-                this.container.innerHTML = this.getRateHtml();
-                this.saveButton.render().on("click", () => {
-                    this.postRatings();
-                });
-                break;
-            case RatingView.modes.view:
-                this.container.innerHTML = this.getViewHtml();
-                break;
+        case RatingView.modes.hide:
+            this.container.hidden = true;
+            break;
+        case RatingView.modes.rate:
+            this.container.innerHTML = this.getRateHtml();
+            this.saveButton.render().on("click", () => {
+                this.postRatings();
+            });
+            break;
+        case RatingView.modes.view:
+            this.container.innerHTML = this.getViewHtml();
+            break;
         }
     }
 }

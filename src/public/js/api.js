@@ -13,7 +13,7 @@ class API {
         };
     }
 
-    _executeFetch(endpoint, method, { data, headers } = {}) {
+    executeFetch(endpoint, method, { data, headers } = {}) {
         const options = {};
         options.method = method;
 
@@ -27,7 +27,7 @@ class API {
 
     post(endpoint, data) {
         const url = `${this.baseUrl}/${endpoint}`;
-        return this._executeFetch(url, "POST", { data });
+        return this.executeFetch(url, "POST", { data });
     }
 
     get(endpoint, id = null, queryParams = {}) {
@@ -37,7 +37,7 @@ class API {
                 url += `${k}=${v}&`;
             }
         });
-        return this._executeFetch(url, "GET");
+        return this.executeFetch(url, "GET");
     }
 
     uploadImage(image) {

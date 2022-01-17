@@ -21,7 +21,7 @@ export default class TastingRoomPlayer {
         this.bindSocket();
     }
 
-    bindSocket(){
+    bindSocket() {
         this.socket.on("player connected", () => this.playerList.fetchPlayers());
 
         this.socket.on("next", (item) => {
@@ -56,8 +56,7 @@ export default class TastingRoomPlayer {
                 if (this.heldTasting.heldTastingItems?.length > 0) {
                     this.item.setItem(this.heldTasting.heldTastingItems[0]).render();
                     this.ratingView.setHeldTastingItemId(this.heldTasting.heldTastingItems[0].id);
-                }
-                else {
+                } else {
                     this.ratingView.setViewMode(RatingView.modes.hide);
                 }
             });

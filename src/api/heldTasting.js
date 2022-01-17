@@ -22,12 +22,12 @@ function generatePin() {
 }
 
 router.get("/:id", async (req, res) => {
-    if(req.query?.done){
+    if (req.query?.done) {
         const heldTasting = await HeldTasting.findByPk(req.params.id, {
             include: [
-                {model: HeldTastingItem, include: [PlayerRating]},
-                {model: HeldTastingRating}
-            ]
+                { model: HeldTastingItem, include: [PlayerRating] },
+                { model: HeldTastingRating },
+            ],
         });
         return res.status(200).json(heldTasting);
     }

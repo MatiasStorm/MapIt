@@ -49,8 +49,7 @@ export default class TastingRoomUser {
                     this.item.setItem(this.heldTasting.heldTastingItems[0]).render();
                     this.nextItemButton.setText("Next");
                     this.started = true;
-                }
-                else{
+                } else {
                     this.ratingView.setViewMode(RatingView.modes.hide);
                 }
             });

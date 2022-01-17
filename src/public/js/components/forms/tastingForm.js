@@ -1,10 +1,12 @@
-import Input from "./input.js";
+import Input from "../input.js";
+import Button from "../button.js";
 
 export default class TastingForm {
     constructor(id, tasting = {}) {
         this.id = id;
         this.inputs = {
             title: new Input("title"),
+            description: new Input("description"),
             image: new Input("image", { type: "file" }),
         };
         this.tasting = tasting;
@@ -18,6 +20,12 @@ export default class TastingForm {
                 </b>
             </label>
             <input id="title" type="text">
+            <label for="description">
+                <b>
+                    Description
+                </b>
+            </label>
+            <textarea id="description" > </textarea>
 
             <label for="image" class="mt-2">
                 <b>
@@ -25,21 +33,12 @@ export default class TastingForm {
                 </b>
             </label>
             <input id="image" type="file">
-            <h1 class="text-2xl mt-4">
-                <b>
-                    Ratings
-                </b>
-            </h1>
-            <div>
-                
-            </div>
         `;
         return html;
     }
 
     updateTasting(key, value) {
         this.tasting[key] = value;
-        console.log(this.tasting);
     }
 
     getTasting() {
