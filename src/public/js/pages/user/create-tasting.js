@@ -1,7 +1,7 @@
 import api from "../../api.js";
 import routes from "../../routes.js";
 import Button from "../../components/button.js";
-import TastingForm from "../../components/tastingForm.js";
+import TastingForm from "../../components/forms/tastingForm.js";
 
 class CreateTasting {
     constructor() {

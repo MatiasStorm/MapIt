@@ -14,6 +14,8 @@
     "rules": {
         "indent": ["error", 4],
         "quotes": ["error", "double"],
-        "import/extensions": 0
+        "import/extensions": 0,
+        "no-restricted-syntax":"off",
+        "no-await-in-loop":"off"
     }
 }

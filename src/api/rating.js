@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const router = require("express").Router();
 const { Rating } = require("../models");
 const { authenticate } = require("../auth");
@@ -18,7 +19,7 @@ router.get("/", async (req, res) => {
     if (req.query?.tastingId) {
         queries.push({ tastingId: req.query.tastingId });
     }
-    const tastings = await TastingItem.findAll({
+    const tastings = await Rating.findAll({
         where: {
             [Op.and]: queries,
         },
@@ -32,17 +33,8 @@ router.post("/", authenticate, async (req, res) => {
         const rating = await Rating.create(req.body);
         return res.status(201).json(rating);
     } catch (err) {
-        console.log(err);
         return res.status(400).json(err.errors);
     }
-});
-
-router.put("/:id", authenticate, async (req, res) => {
-
-});
-
-router.delete("/:id", authenticate, async (req, res) => {
-
 });
 
 module.exports = router;

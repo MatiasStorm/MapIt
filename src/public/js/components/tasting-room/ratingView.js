@@ -1,5 +1,5 @@
-import api from "/js/api.js";
-import Button from "/js/components/button.js";
+import api from "../../api.js";
+import Button from "../button.js";
 
 export default class RatingView {
     static modes = {
@@ -44,17 +44,13 @@ export default class RatingView {
     }
 
     setViewMode(mode) {
-        if (this.mode !== mode) {
-            // rerender
-        }
         this.mode = mode;
     }
 
     getRateHtml() {
         let html = "";
-        for (const rating of this.ratings) {
+        this.ratings.forEach((rating) => {
             html += `
-                <div class="flex flex-grow w-full mb-5">
                     <label for="${rating.id}" class="mr-5">
                         <b class="text-2xl text-white">
                             ${rating.title}:
@@ -73,13 +69,16 @@ export default class RatingView {
                             Max.
                         </b>
                     </div>
-                </div>
-                <button id="${this.saveButtonId}">
-                    
-                </button>
             `;
-        }
-        return html;
+        });
+        return `
+            <div class="flex flex-col flex-grow w-full mb-5">
+                ${html}
+            </div>
+            <button id="${this.saveButtonId}">
+                
+            </button>
+        `;
     }
 
     postRatings() {
@@ -142,9 +141,6 @@ export default class RatingView {
         }
         this.container.className = "flex flex-col justify-between p-5 ";
         switch (this.mode) {
-        case RatingView.modes.hide:
-            this.container.hidden = true;
-            break;
         case RatingView.modes.rate:
             this.container.innerHTML = this.getRateHtml();
             this.saveButton.render().on("click", () => {
@@ -153,6 +149,10 @@ export default class RatingView {
             break;
         case RatingView.modes.view:
             this.container.innerHTML = this.getViewHtml();
+            break;
+        case RatingView.modes.hide:
+        default:
+            this.container.hidden = true;
             break;
         }
     }

@@ -42,7 +42,12 @@ router.post("/", authenticate, async (req, res) => {
 });
 
 router.put("/:id", authenticate, async (req, res) => {
-    const tasting = await Tasting.findByPk(req.params.id);
+    const tasting = await Tasting.findByPk(req.params.id, {
+        include: [
+            Rating,
+            TastingItem,
+        ],
+    });
     if (!tasting) {
         return res.status(404).send();
     }
@@ -50,6 +55,36 @@ router.put("/:id", authenticate, async (req, res) => {
         return res.status(403).send();
     }
 
+    if (req.body.ratings) {
+        await tasting.ratings.forEach(async (r) => {
+            await r.destroy();
+        });
+        const ratings = [...req.body.ratings];
+        req.body.ratings = [];
+        for (const r of ratings) {
+            const rating = await Rating.create({
+                ...r,
+                tastingId: tasting.id,
+                userId: tasting.userId,
+            });
+            req.body.ratings.push(rating);
+        }
+    }
+    if (req.body.tastingItems) {
+        await tasting.tastingItems.forEach(async (i) => {
+            await i.destroy();
+        });
+        const items = [...req.body.tastingItems];
+        req.body.tastingItems = [];
+        for (const i of items) {
+            const item = await TastingItem.create({
+                ...i,
+                tastingId: tasting.id,
+                userId: tasting.userId,
+            });
+            req.body.tastingItems.push(item);
+        }
+    }
     await tasting.update(req.body);
 
     return res.status(201).json(tasting);

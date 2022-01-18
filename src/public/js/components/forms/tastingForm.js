@@ -4,10 +4,11 @@ import Button from "../button.js";
 export default class TastingForm {
     constructor(id, tasting = {}) {
         this.id = id;
+        this.titleId = `${id}-title`;
+        this.imageId = `${id}-image`;
         this.inputs = {
-            title: new Input("title"),
-            description: new Input("description"),
-            image: new Input("image", { type: "file" }),
+            title: new Input(this.titleId),
+            image: new Input(this.imageId, { type: "file" }),
         };
         this.tasting = tasting;
     }
@@ -19,20 +20,14 @@ export default class TastingForm {
                     Title
                 </b>
             </label>
-            <input id="title" type="text">
-            <label for="description">
-                <b>
-                    Description
-                </b>
-            </label>
-            <textarea id="description" > </textarea>
+            <input id="${this.titleId}" type="text" value="${this.tasting.title || ""}">
 
             <label for="image" class="mt-2">
                 <b>
                     Cover Image
                 </b>
             </label>
-            <input id="image" type="file">
+            <input id="${this.imageId}" type="file" value="${this.tasting.imageUrl || ""}">
         `;
         return html;
     }
@@ -54,9 +49,9 @@ export default class TastingForm {
     }
 
     render() {
-        this.container = document.getElementById(this.id);
-        this.container.innerHTML = this.getHtml();
-        this.container.className = "flex flex-col px-4";
+        const container = document.getElementById(this.id);
+        container.innerHTML = this.getHtml();
+        container.className = "flex flex-col px-4";
 
         this.renderInputs();
     }

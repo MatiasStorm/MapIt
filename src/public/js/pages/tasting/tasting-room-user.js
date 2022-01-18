@@ -1,5 +1,5 @@
 import api from "../../api.js";
-import Button from "/js/components/button.js";
+import Button from "../../components/button.js";
 import PlayerList from "../../components/tasting-room/playerList.js";
 import Item from "../../components/tasting-room/item.js";
 import RatingView from "../../components/tasting-room/ratingView.js";
@@ -31,7 +31,7 @@ export default class TastingRoomUser {
 
         this.socket.on("next", (item) => {
             this.item.setItem(item).render();
-            this.ratingView.setViewMode(RatingView.modes.rate);
+            this.ratingView.setHeldTastingItemId(item.id);
         });
 
         this.socket.on("end", () => {

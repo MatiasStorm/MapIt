@@ -26,8 +26,8 @@ export default class TastingRoomPlayer {
 
         this.socket.on("next", (item) => {
             this.item.setItem(item).render();
-            this.ratingView.setHeldTastingItemId(item.id);
             this.ratingView.setViewMode(RatingView.modes.rate);
+            this.ratingView.setHeldTastingItemId(item.id);
         });
 
         this.socket.on("end", () => {

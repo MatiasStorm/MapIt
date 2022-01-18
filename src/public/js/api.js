@@ -40,6 +40,16 @@ class API {
         return this.executeFetch(url, "GET");
     }
 
+    patch(endpoint, id, data) {
+        const url = `${this.baseUrl}/${endpoint}/${id || ""}?`;
+        return this.executeFetch(url, "PATCH", { data });
+    }
+
+    put(endpoint, id, data) {
+        const url = `${this.baseUrl}/${endpoint}/${id || ""}?`;
+        return this.executeFetch(url, "PUT", { data });
+    }
+
     uploadImage(image) {
         const data = new FormData();
         data.append("image", image);
