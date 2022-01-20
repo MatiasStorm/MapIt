@@ -44,7 +44,7 @@ export default class ViewTasting {
             api.delete(api.endpoints.tasting, this.tasting.id)
                 .then((res) => {
                     if (res.status < 400) {
-                        window.location.href = routes.user.myTastings;
+                        window.location = routes.user.myTastings;
                     }
                 });
         });

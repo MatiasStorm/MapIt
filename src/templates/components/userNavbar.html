@@ -16,9 +16,8 @@
             Account
         </a>
     </div>
-    <a class="self-center mx-2 hover:text-gray-200" 
-        onclick="fetch('/api/users/logout', { method: 'POST' }).then((res) => window.location.reload())"
-    >
-        logout
-    </a>
+    <button class="self-center mx-2 hover:text-gray-200" 
+        onclick="fetch('/api/users/logout').then(() => window.location = '/login')">
+        Logout
+    </button>
 </div>

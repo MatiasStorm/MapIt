@@ -7,7 +7,7 @@ export default class RatingsView {
         this.container = document.getElementById(id);
         this.form = new RatingForm("ratings-form", tasting.ratings);
         this.tasting = tasting;
-        this.buttons = new EditSaveCancel("rating-buttons", "Ratings:");
+        this.buttons = new EditSaveCancel("rating-buttons", "Rating Categories:");
         this.buttons.on("edit", () => {
             this.form.render();
         });

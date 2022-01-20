@@ -3,6 +3,14 @@ const { Op } = require("sequelize");
 const { signToken } = require("../auth");
 const { User } = require("../models");
 
+router.get("/logout", async (req, res) => {
+    res.cookie("auth", "", {
+        httpOnly: true,
+        maxAge: -1,
+    });
+    res.send();
+});
+
 router.get("/:id", async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id);
@@ -18,8 +26,12 @@ router.get("/:id", async (req, res) => {
 router.post("", async (req, res) => {
     try {
         const user = await User.create(req.body);
-        res.statusCode = 201;
-        res.json(user);
+        const accessToken = signToken(user);
+        res.cookie("auth", accessToken, {
+            httpOnly: true,
+        });
+        res.redirect(301, "/user/my-tastings");
+        res.send();
     } catch (err) {
         res.statusCode = 400;
         res.json(err.errors);
@@ -53,13 +65,6 @@ router.post("/login", async (req, res) => {
         return res.send();
     }
     return res.status(401).send();
-});
-
-router.post("/logout", async (req, res) => {
-    res.cookie("auth", "", {
-        httpOnly: true,
-        maxAge: 0,
-    }).send();
 });
 
 module.exports = router;

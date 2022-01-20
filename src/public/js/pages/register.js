@@ -47,6 +47,10 @@ class UserRegister {
             headers: {
                 "Content-Type": "application/json",
             },
+        }).then((res) => {
+            if (res.redirected) {
+                window.location = res.url;
+            }
         });
     }
 }

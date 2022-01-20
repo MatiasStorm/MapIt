@@ -1,12 +1,12 @@
 const { Op } = require("sequelize");
 const router = require("express").Router();
-const { authenticate } = require("../auth");
+const { authenticate, authorize } = require("../auth");
 const { Tasting, Rating, TastingItem } = require("../models");
 
-router.get("", async (req, res) => {
+router.get("", authorize, async (req, res) => {
     const queries = [];
-    if (req.query?.userId) {
-        queries.push({ userId: req.query.userId });
+    if (req.user) {
+        queries.push({ userId: req.user.id });
     }
     const tastings = await Tasting.findAll({
         where: {
