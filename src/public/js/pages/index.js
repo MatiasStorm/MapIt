@@ -1,6 +1,6 @@
-import Button from "/js/components/button.js";
-import Input from "/js/components/input.js";
-import api from "/js/api.js";
+import Button from "../components/button.js";
+import Input from "../components/input.js";
+import api from "../api.js";
 
 export default class Index {
     constructor() {
@@ -25,7 +25,6 @@ export default class Index {
             this.player[key] = input.getValue();
         });
         this.enterButton.render().on("click", () => {
-            console.log("click");
             api.post(api.endpoints.player, this.player)
                 .then((res) => {
                     if (res.status === 400) {

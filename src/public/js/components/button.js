@@ -18,7 +18,19 @@ export default class Button {
 
     getClassName() {
         let classes = "rounded ";
-        classes += this.options?.light ? " bg-gray-100 hover:bg-gray-200 " : " bg-gray-800 text-white hover:bg-gray-900 ";
+
+        switch (this.options?.color) {
+        case "red":
+            classes += " bg-red-700 hover:bg-red-600 text-white ";
+            break;
+        case "light":
+            classes += " bg-gray-100 hover:bg-gray-200 ";
+            break;
+        case "dark":
+        default:
+            classes += " bg-gray-800 text-white hover:bg-gray-900 ";
+        }
+
         switch (this.options?.size) {
         case "sm":
             classes += " text-sm p-2 ";
@@ -31,7 +43,8 @@ export default class Button {
             classes += " text-md p-2 ";
             break;
         }
-        return classes + this.options?.extraClasses;
+
+        return `${classes} ${this.options?.extraClasses || ""}`;
     }
 
     render() {

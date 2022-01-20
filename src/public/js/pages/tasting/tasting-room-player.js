@@ -28,10 +28,14 @@ export default class TastingRoomPlayer {
             this.item.setItem(item).render();
             this.ratingView.setViewMode(RatingView.modes.rate);
             this.ratingView.setHeldTastingItemId(item.id);
+            this.ratingView.render();
         });
 
         this.socket.on("end", () => {
-            window.location.reload();
+            api.post(`${api.endpoints.player}/logout`, {})
+                .then(() => {
+                    window.location.reload();
+                });
         });
     }
 
@@ -47,8 +51,8 @@ export default class TastingRoomPlayer {
             });
     }
 
-    fetchHeldTasting() {
-        api.get(api.endpoints.heldTastings, this.heldTastingId)
+    async fetchHeldTasting() {
+        await api.get(api.endpoints.heldTastings, this.heldTastingId)
             .then((res) => res.json())
             .then((heldTasting) => {
                 this.heldTasting = heldTasting;
@@ -62,9 +66,9 @@ export default class TastingRoomPlayer {
             });
     }
 
-    render() {
-        this.fetchHeldTasting();
-        this.ratingView.fetchRatings();
+    async render() {
         this.fetchPlayer();
+        await this.fetchHeldTasting();
+        this.ratingView.fetchRatings();
     }
 }

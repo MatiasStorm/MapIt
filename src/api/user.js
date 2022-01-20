@@ -9,11 +9,9 @@ router.get("/:id", async (req, res) => {
         if (user !== null) {
             return res.json(user);
         }
-        res.statusCode = 404;
-        res.send();
+        return res.status(404).send();
     } catch (err) {
-        res.statusCode = 500;
-        res.json(err);
+        return res.status(500).json(err);
     }
 });
 
@@ -38,7 +36,6 @@ router.post("/login", async (req, res) => {
         res.status(400);
         return res.send();
     }
-    console.log(body);
     const user = await User.findOne({
         where: {
             [Op.and]: [
@@ -52,15 +49,17 @@ router.post("/login", async (req, res) => {
         res.cookie("auth", accessToken, {
             httpOnly: true,
         });
-        res.redirect(301, "/user/dashboard");
+        res.redirect(301, "/user/my-tastings");
         return res.send();
     }
-    res.status(401);
-    res.send();
+    return res.status(401).send();
 });
 
 router.post("/logout", async (req, res) => {
-
+    res.cookie("auth", "", {
+        httpOnly: true,
+        maxAge: 0,
+    }).send();
 });
 
 module.exports = router;

@@ -33,7 +33,11 @@ export default class RatingView {
     }
 
     fetchRatings() {
-        api.get(api.endpoints.heldTastingRating, null, { heldTastingId: this.heldTastingId })
+        const queries = {
+            heldTastingId: this.heldTastingId,
+            heldTastingItemId: this.heldTastingItemId,
+        };
+        api.get(api.endpoints.heldTastingRating, null, queries)
             .then((res) => res.json())
             .then((ratings) => {
                 this.ratings = ratings;

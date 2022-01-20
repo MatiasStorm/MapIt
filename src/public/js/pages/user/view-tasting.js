@@ -3,11 +3,13 @@ import Button from "../../components/button.js";
 import RatingsView from "../../components/views/ratingsView.js";
 import TastingView from "../../components/views/tastingView.js";
 import ItemsView from "../../components/views/itemsView.js";
+import routes from "../../routes.js";
 
 export default class ViewTasting {
     constructor(tastingId) {
         this.tastingId = tastingId;
         this.launchTastingButton = new Button("launch-button", { size: "lg" });
+        this.deleteButton = new Button("delete-button", { size: "lg", color: "red" });
         this.tasting = {};
     }
 
@@ -37,6 +39,14 @@ export default class ViewTasting {
                     // Display error
                 }
             });
+        });
+        this.deleteButton.render().on("click", () => {
+            api.delete(api.endpoints.tasting, this.tasting.id)
+                .then((res) => {
+                    if (res.status < 400) {
+                        window.location.href = routes.user.myTastings;
+                    }
+                });
         });
     }
 }

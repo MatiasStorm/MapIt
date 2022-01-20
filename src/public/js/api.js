@@ -50,6 +50,11 @@ class API {
         return this.executeFetch(url, "PUT", { data });
     }
 
+    delete(endpoint, id) {
+        const url = `${this.baseUrl}/${endpoint}/${id}`;
+        return this.executeFetch(url, "DELETE");
+    }
+
     uploadImage(image) {
         const data = new FormData();
         data.append("image", image);

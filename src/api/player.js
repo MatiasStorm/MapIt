@@ -43,4 +43,9 @@ router.get("/", async (req, res) => {
     res.status(200).json(players);
 });
 
+router.post("/logout", async (req, res) => {
+    req.session.destroy();
+    res.status(201).send();
+});
+
 module.exports = router;

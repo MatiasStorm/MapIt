@@ -1,8 +1,8 @@
-<div class="w-full h-12 flex justify-between bg-gray-800 text-white">
-    <a href="dashboard" class="mx-2 text-lg self-center hover:text-gray-200">
+<div class="flex justify-between w-full h-12 text-white bg-gray-800">
+    <a href="dashboard" class="self-center mx-2 text-lg hover:text-gray-200">
         Tastr - Dashboard
     </a>
-    <div class="flex gap-5 justify-around self-center content-center">
+    <div class="flex content-center self-center justify-around gap-5">
         <a href="/user/my-tastings" class="hover:text-gray-200">
             My Tastings
         </a>
@@ -16,7 +16,9 @@
             Account
         </a>
     </div>
-    <a class="mx-2 self-center hover:text-gray-200">
+    <a class="self-center mx-2 hover:text-gray-200" 
+        onclick="fetch('/api/users/logout', { method: 'POST' }).then((res) => window.location.reload())"
+    >
         logout
     </a>
 </div>

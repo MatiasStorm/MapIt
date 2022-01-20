@@ -24,7 +24,8 @@ export default class ItemsForm {
                 <b>
                     Description:
                 </b>
-                <textarea data-type="description" class="rounded border border-gray-300 p-3" cols="30" rows="10" value="${item?.description || ""}">
+                <textarea data-type="description" class="rounded border border-gray-300 p-3" cols="30" rows="10">
+                    ${item?.description || ""}
                 </textarea>
             </label>
             <label class="flex flex-col">

@@ -1,5 +1,6 @@
 const path = require("path");
 const router = require("express").Router();
+const { authorize } = require("../auth");
 
 const pagePath = path.join(__dirname, "../templates/pages");
 const componentPath = path.join(__dirname, "../templates/components");
@@ -8,11 +9,13 @@ const templater = require("../templater")({ componentPath });
 
 const createPage = (file, variables) => templater.compile(file, variables);
 
-router.get("/", (req, res) => {
+router.get("/", authorize, (req, res) => {
     if (req.session?.player) {
-        res.redirect(req.session.url);
+        return res.redirect(req.session.url);
+    } if (req.user) {
+        return res.redirect("/user/my-tastings");
     }
-    res.send(createPage(`${pagePath}/index.html`));
+    return res.send(createPage(`${pagePath}/index.html`));
 });
 
 router.get("/login", (req, res) => {

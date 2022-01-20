@@ -18,7 +18,7 @@ function parseCookie(socket, next) {
     }
 
     socket.cookies = cookie.parse(cookies);
-    next();
+    return next();
 }
 
 async function getNextTastingItem(id) {

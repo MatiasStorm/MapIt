@@ -6,9 +6,9 @@ function authenticate(req, res, next) {
     if (token === undefined) {
         return res.redirect(301, "/login");
     }
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) => {
+    return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) => {
         if (err) {
-            return res.sendStatus(403);
+            res.sendStatus(403);
         }
         req.user = user;
         next();
@@ -21,9 +21,9 @@ async function authorizeSocket(socket, next) {
     if (token === undefined) {
         return next();
     }
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) => {
+    return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) => {
         if (err) {
-            return next();
+            next();
         }
         socket.user = user;
         next();
@@ -36,9 +36,9 @@ function authorize(req, res, next) {
     if (token === undefined) {
         return next();
     }
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
-            return next();
+            next();
         }
         req.user = user;
         next();

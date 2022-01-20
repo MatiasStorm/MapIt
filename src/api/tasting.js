@@ -36,7 +36,6 @@ router.post("/", authenticate, async (req, res) => {
         const tasting = await Tasting.create(req.body);
         return res.status(201).json(tasting);
     } catch (err) {
-        console.log(err);
         return res.status(400).json(err.errors);
     }
 });
@@ -88,6 +87,19 @@ router.put("/:id", authenticate, async (req, res) => {
     await tasting.update(req.body);
 
     return res.status(201).json(tasting);
+});
+
+router.delete("/:id", authenticate, async (req, res) => {
+    const tasting = await Tasting.findByPk(req.params.id);
+    if (!tasting) {
+        return res.status(404).send();
+    }
+    try {
+        await tasting.destroy();
+        return res.status(204).send();
+    } catch (err) {
+        return res.status(500).send();
+    }
 });
 
 module.exports = router;

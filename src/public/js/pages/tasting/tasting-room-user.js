@@ -31,7 +31,9 @@ export default class TastingRoomUser {
 
         this.socket.on("next", (item) => {
             this.item.setItem(item).render();
+            this.ratingView.setViewMode(RatingView.modes.view);
             this.ratingView.setHeldTastingItemId(item.id);
+            this.ratingView.fetchRatings();
         });
 
         this.socket.on("end", () => {
@@ -39,14 +41,16 @@ export default class TastingRoomUser {
         });
     }
 
-    fetchHeldTasting() {
-        api.get(api.endpoints.heldTastings, this.heldTastingId)
+    async fetchHeldTasting() {
+        await api.get(api.endpoints.heldTastings, this.heldTastingId)
             .then((res) => res.json())
             .then((heldTasting) => {
                 this.heldTasting = heldTasting;
                 document.getElementById("title").innerText = heldTasting.title;
                 if (this.heldTasting.heldTastingItems?.length > 0) {
-                    this.item.setItem(this.heldTasting.heldTastingItems[0]).render();
+                    const item = this.heldTasting.heldTastingItems[0];
+                    this.item.setItem(item).render();
+                    this.ratingView.setHeldTastingItemId(item.id);
                     this.nextItemButton.setText("Next");
                     this.started = true;
                 } else {
@@ -55,9 +59,7 @@ export default class TastingRoomUser {
             });
     }
 
-    render() {
-        this.fetchHeldTasting();
-        this.ratingView.fetchRatings();
+    async render() {
         this.nextItemButton.render().on("click", () => {
             if (!this.started) {
                 this.started = true;
@@ -65,5 +67,7 @@ export default class TastingRoomUser {
             }
             this.socket.emit("next", { id: this.heldTastingId });
         });
+        await this.fetchHeldTasting();
+        this.ratingView.fetchRatings();
     }
 }

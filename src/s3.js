@@ -80,12 +80,8 @@ class S3 {
             // Content of the new object.
             Body: data,
         };
-        try {
-            await this.s3Client.send(new PutObjectCommand(bucketParams));
-            return key;
-        } catch (err) {
-            throw err;
-        }
+        await this.s3Client.send(new PutObjectCommand(bucketParams));
+        return key;
     }
 }
 
