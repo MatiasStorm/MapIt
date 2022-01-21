@@ -29,6 +29,8 @@ export default class TastingRoomUser {
     bindSocket() {
         this.socket.on("player connected", () => this.playerList.fetchPlayers());
 
+        this.socket.on("test", console.log);
+
         this.socket.on("next", (item) => {
             this.item.setItem(item).render();
             this.ratingView.setViewMode(RatingView.modes.view);

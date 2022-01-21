@@ -30,6 +30,7 @@ router.get("/:id", async (req, res) => {
     return res.json(tasting);
 });
 
+// api/tastings/
 router.post("/", authenticate, async (req, res) => {
     try {
         req.body.userId = req.user.id;

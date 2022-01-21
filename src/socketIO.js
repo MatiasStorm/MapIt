@@ -67,6 +67,8 @@ module.exports = (app) => {
     room.use(async (socket, next) => { await authorize(socket, next); });
 
     room.on("connection", (socket) => {
+        room.emit("test", Date.now());
+
         room.emit("player connected");
 
         socket.on("next", async (heldTasting) => {

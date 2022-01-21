@@ -44,10 +44,7 @@ class Templater {
             variables.title = `Tastr - ${variables.title}`;
         }
 
-        Object.keys(variables).forEach((varName) => {
-            template = template.replaceAll(`{{${varName}}}`, variables[varName]);
-        });
-        return template;
+        return Object.keys(variables).reduce((prev, varName) => prev.replaceAll(`{{${varName}}}`, variables[varName]), template);
     }
 
     parse(template) {
